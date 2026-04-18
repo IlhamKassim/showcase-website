@@ -95,7 +95,7 @@ function animateDashSpending() {
 
   // Counter 0 → 92
   let count = 0;
-  const target = 92;
+  const target = 56;
   const duration = 1200;
   const step = duration / target;
   const timer = setInterval(() => {
