@@ -131,7 +131,6 @@
     <button class="scene-btn active" data-scene="scene1">Display 1 — Lab Info Panel</button>
     <button class="scene-btn" data-scene="scene2">Display 2 — Cars &amp; Racing</button>
     <button class="scene-btn" data-scene="scene3">Display 3 — Mechanical Counter</button>
-    <button class="scene-btn" data-scene="scene4">Full Hallway View</button>
   </div>
 
   <script>
@@ -161,54 +160,65 @@
       scenes: {
         scene1: {
           title: 'Display 1 — Lab Information Panel',
-          // TODO: replace with real image path, e.g. 'images/entrance.jpg'
-          panorama: '',
+          panorama: 'images/display-1.jpeg',
           hotSpots: [
             {
               pitch: -5,
               yaw: 90,
               type: 'scene',
-              text: 'Go to Main Lobby',
+              text: 'Go to Display 2 — Cars & Racing',
               sceneId: 'scene2',
             },
             {
               pitch: 10,
               yaw: -45,
               type: 'info',
-              text: 'Main Entrance — click to learn more',
+              text: 'Additive/Subtractive Manufacturing, Fluid Flow, Robotics & Energy panels',
             },
           ],
         },
         scene2: {
           title: 'Display 2 — Cars & Racing',
-          panorama: '',
+          panorama: 'images/display-2.jpeg',
           hotSpots: [
             {
               pitch: -3,
               yaw: 180,
               type: 'scene',
-              text: 'Back to Entrance',
+              text: 'Back to Display 1 — Lab Info Panel',
               sceneId: 'scene1',
             },
             {
               pitch: 0,
               yaw: 45,
               type: 'scene',
-              text: 'Go to Outdoor Area',
+              text: 'Go to Display 3 — Mechanical Counter',
               sceneId: 'scene3',
+            },
+            {
+              pitch: 5,
+              yaw: -30,
+              type: 'info',
+              text: '2025 Nittany Motorsports Formula 1 car — mounted with steel cables',
             },
           ],
         },
         scene3: {
           title: 'Display 3 — Mechanical Counter',
-          panorama: '',
+          panorama: 'images/display-3.jpeg',
           hotSpots: [
             {
-              pitch: 5,
+              pitch: -5,
               yaw: 135,
               type: 'scene',
-              text: 'Go to Lab / Studio',
-              sceneId: 'scene4',
+              text: 'Back to Display 2 — Cars & Racing',
+              sceneId: 'scene2',
+            },
+            {
+              pitch: 10,
+              yaw: -60,
+              type: 'info',
+              text: 'Hand-crank visitor counter — each digit represents a different technology era',
             },
           ],
         },
