@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reber Building Virtual Tour — Kinetic Engineering Collective</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     SIDEBAR
+══════════════════════════════════════════ -->
+<aside class="sidebar" id="sidebar">
+
+  <!-- Brand -->
+  <div class="sidebar-brand">
+    <div class="psu-logo">
+      <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="60" height="60" rx="12" fill="white" fill-opacity="0.12"/>
+        <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
+              font-family="Georgia, serif" font-size="20" font-weight="bold" fill="white">PSU</text>
+      </svg>
+    </div>
+    <div class="brand-text">
+      <span class="brand-name">Penn State</span>
+      <span class="brand-college">College of Engineering</span>
+      <span class="brand-dept">MECHANICAL<br/>ENGINEERING</span>
+    </div>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <!-- Nav -->
+  <nav class="sidebar-nav">
+    <button class="nav-item active" data-page="dashboard">
+      <i data-lucide="layout-dashboard"></i>
+      <span>Dashboard</span>
+    </button>
+    <button class="nav-item" data-page="about">
+      <i data-lucide="info"></i>
+      <span>About</span>
+    </button>
+    <button class="nav-item" data-page="design">
+      <i data-lucide="pen-tool"></i>
+      <span>Design Process</span>
+    </button>
+    <button class="nav-item" data-page="team">
+      <i data-lucide="users"></i>
+      <span>Team</span>
+    </button>
+    <button class="nav-item" data-page="budget">
+      <i data-lucide="bar-chart-2"></i>
+      <span>Our Spending</span>
+    </button>
+    <button class="nav-item" data-page="facts">
+      <i data-lucide="lightbulb"></i>
+      <span>Did You Know?</span>
+    </button>
+  </nav>
+
+  <div class="sidebar-spacer"></div>
+
+  <!-- Tour CTA -->
+  <div class="sidebar-tour-btn">
+    <button class="tour-launch-btn" onclick="openTourModal()">
+      <i data-lucide="globe"></i>
+      <span>Launch Tour</span>
+    </button>
+  </div>
+
+</aside>
+
+<!-- ══════════════════════════════════════════
+     MAIN AREA
+══════════════════════════════════════════ -->
+<main class="main" id="main">
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="hamburger" id="hamburger">
+        <i data-lucide="menu"></i>
+      </button>
+      <div class="topbar-project">
+        <div class="topbar-psu-mark">
+          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" width="44" height="44">
+            <rect width="44" height="44" rx="10" fill="#1e407c"/>
+            <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
+                  font-family="Georgia, serif" font-size="14" font-weight="bold" fill="white">PSU</text>
+          </svg>
+        </div>
+        <div>
+          <h1 class="topbar-title">Reber Building</h1>
+          <p class="topbar-desc">
+            Join us for a walkthrough the new and improved Reber Building hallway at Penn State,
+            created and implemented by the Kinetic Engineering Collective team.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-team-badge">
+        <i data-lucide="zap"></i>
+        Kinetic Engineering Collective
+      </div>
+    </div>
+  </header>
+
+  <!-- Page container -->
+  <div class="content">
+
+    <!-- ── PAGE: DASHBOARD ── -->
+    <section id="page-dashboard" class="page active">
+      <div class="page-header">
+        <h2>Overview</h2>
+        <span class="page-subtitle">Kinetic Engineering Collective — Capstone 2025</span>
+      </div>
+
+      <div class="dash-grid">
+
+        <!-- CARD: Let's Walk -->
+        <div class="dash-card card-walk" onclick="openTourModal()">
+          <div class="card-img-bg" style="background: linear-gradient(145deg,#0d1b3e 0%,#1e407c 60%,#2a5fa8 100%);">
+            <div class="card-img-pattern"></div>
+          </div>
+          <div class="card-overlay-walk">
+            <div class="walk-icon-ring">
+              <i data-lucide="globe"></i>
+            </div>
+            <h2>Let's Walk!</h2>
+            <p>Explore the Reber Building hallway<br/>in an immersive 360° virtual tour</p>
+            <div class="walk-cta">
+              <span>Launch Tour</span>
+              <i data-lucide="arrow-right"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD: About the Project -->
+        <div class="dash-card card-about" onclick="navigate('about')">
+          <div class="card-img-bg" style="background: linear-gradient(135deg,#1a3a60 0%,#2d6a9f 100%);">
+            <!-- Placeholder image; replace: style="background-image:url('images/hallway-interior.jpg')" -->
+            <div class="card-img-pattern"></div>
+          </div>
+          <div class="card-label-overlay">
+            <span class="card-label-tag">
+              <i data-lucide="building-2"></i> About the Project
+            </span>
+            <p class="card-label-sub">Department of Mechanical Engineering</p>
+          </div>
+        </div>
+
+        <!-- CARD: Design Process -->
+        <div class="dash-card card-design" onclick="navigate('design')">
+          <div class="card-img-bg" style="background: linear-gradient(135deg,#101828 0%,#2d3a55 100%);">
+            <div class="card-img-pattern"></div>
+          </div>
+          <div class="card-label-overlay">
+            <span class="card-label-tag">
+              <i data-lucide="pen-tool"></i> Design Process
+            </span>
+            <p class="card-label-sub">From concept to completion</p>
+          </div>
+        </div>
+
+        <!-- CARD: Meet the Team -->
+        <div class="dash-card card-team" onclick="navigate('team')">
+          <div class="team-preview-content">
+            <div class="team-preview-left">
+              <h3>Meet the Team!</h3>
+              <p>The Kinetic Engineering Collective</p>
+            </div>
+            <div class="team-avatar-stack">
+              <div class="ta ta-1">IK</div>
+              <div class="ta ta-2">TM</div>
+              <div class="ta ta-3">TM</div>
+              <div class="ta ta-plus">+1</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD: Our Spending -->
+        <div class="dash-card card-spending" onclick="navigate('budget')">
+          <div class="spending-header">
+            <span class="spending-title">Our Spending</span>
+            <span class="spending-sub">for this project</span>
+          </div>
+          <div class="spending-bar-wrap">
+            <div class="spending-bar-track">
+              <div class="spending-bar-fill" style="width: 0%" data-width="92%"></div>
+            </div>
+          </div>
+          <div class="spending-details">
+            <span class="spending-pct" id="spendPct">0%</span>
+            <span class="spending-amount">$1,150.00 spent of $1,250.00</span>
+          </div>
+        </div>
+
+        <!-- CARD: Did You Know? -->
+        <div class="dash-card card-facts" onclick="navigate('facts')">
+          <div class="facts-card-inner">
+            <div class="facts-icon">
+              <i data-lucide="lightbulb"></i>
+            </div>
+            <h3>Did you know this?</h3>
+            <p class="facts-teaser" id="factTeaser">
+              Virtual tours increase engagement with departmental facilities by over 3×.
+            </p>
+            <span class="facts-more">Explore all facts →</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── PAGE: ABOUT ── -->
+    <section id="page-about" class="page">
+      <div class="page-header">
+        <button class="back-btn" onclick="navigate('dashboard')"><i data-lucide="arrow-left"></i> Back</button>
+        <h2>About the Project</h2>
+        <span class="page-subtitle">Reber Building Hallway Renovation</span>
+      </div>
+
+      <div class="about-hero glass-section">
+        <div class="about-hero-img" style="background: linear-gradient(135deg,#1e407c,#2a6aad);">
+          <!-- TODO: Replace with background-image: url('images/hallway.jpg') -->
+          <div class="card-img-pattern"></div>
+          <div class="about-hero-label">Reber Building · Penn State</div>
+        </div>
+        <div class="about-hero-text">
+          <span class="section-eyebrow">Project Overview</span>
+          <h3>A New Hallway Experience for the Department of Mechanical Engineering</h3>
+          <p>
+            <!-- TODO: Replace with your full project description -->
+            The Kinetic Engineering Collective set out to redesign and revitalize the
+            hallway of the Reber Building at Penn State's College of Engineering.
+            The goal: create a welcoming, informative, and visually compelling space
+            that represents the innovation and excellence of the Mechanical Engineering department.
+          </p>
+          <p>
+            Our capstone project pairs the physical renovation with a fully immersive
+            360° virtual tour — letting prospective students, faculty, and remote visitors
+            experience the improved hallway from anywhere in the world.
+          </p>
+        </div>
+      </div>
+
+      <div class="about-cards-row">
+        <div class="info-card glass-section">
+          <div class="info-icon-wrap navy">
+            <i data-lucide="target"></i>
+          </div>
+          <h4>Our Goal</h4>
+          <p>
+            <!-- TODO: Update with specific project objectives -->
+            Redesign the Reber Building hallway to better reflect the identity of
+            Penn State's Mechanical Engineering department and provide an
+            accessible virtual experience for all audiences.
+          </p>
+        </div>
+        <div class="info-card glass-section">
+          <div class="info-icon-wrap blue">
+            <i data-lucide="wrench"></i>
+          </div>
+          <h4>What We Did</h4>
+          <p>
+            <!-- TODO: List physical improvements made -->
+            Redesigned signage, installed modern displays, improved lighting,
+            and created an immersive web-based 360° virtual tour using Pannellum
+            and equirectangular panoramic photography.
+          </p>
+        </div>
+        <div class="info-card glass-section">
+          <div class="info-icon-wrap teal">
+            <i data-lucide="users"></i>
+          </div>
+          <h4>Who Benefits</h4>
+          <p>
+            Prospective students, current students, alumni, faculty, and remote
+            stakeholders who want to experience the Mechanical Engineering
+            facilities at Penn State without being physically present.
+          </p>
+        </div>
+      </div>
+
+      <div class="glass-section about-specs">
+        <h4>Project Highlights</h4>
+        <div class="specs-grid">
+          <div class="spec-item">
+            <span class="spec-val">2025</span>
+            <span class="spec-key">Capstone Year</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-val"><!-- TODO -->4</span>
+            <span class="spec-key">Team Members</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-val">$1,250</span>
+            <span class="spec-key">Total Budget</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-val">360°</span>
+            <span class="spec-key">Virtual Tour</span>
+          </div>
+          <div class="spec-item">
+            <!-- TODO: Add your number of scenes -->
+            <span class="spec-val">—</span>
+            <span class="spec-key">Panoramic Scenes</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-val">Pannellum</span>
+            <span class="spec-key">Tour Engine</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PAGE: DESIGN PROCESS ── -->
+    <section id="page-design" class="page">
+      <div class="page-header">
+        <button class="back-btn" onclick="navigate('dashboard')"><i data-lucide="arrow-left"></i> Back</button>
+        <h2>Design Process</h2>
+        <span class="page-subtitle">From brainstorming to the final product</span>
+      </div>
+
+      <div class="timeline-wrap">
+
+        <div class="timeline-item">
+          <div class="timeline-dot step-1">
+            <i data-lucide="lightbulb"></i>
+          </div>
+          <div class="timeline-card glass-section">
+            <div class="timeline-step-badge">Step 01</div>
+            <h4>Brainstorming & Ideation</h4>
+            <p>
+              <!-- TODO: Describe your team's brainstorming sessions -->
+              The team gathered to identify pain points in the current Reber Building hallway —
+              outdated signage, poor wayfinding, lack of visual identity. We generated ideas
+              through mind-mapping, sketching, and referencing best-in-class engineering department showcases.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot step-2">
+            <i data-lucide="search"></i>
+          </div>
+          <div class="timeline-card glass-section">
+            <div class="timeline-step-badge">Step 02</div>
+            <h4>Research & Planning</h4>
+            <p>
+              <!-- TODO: Describe your research phase -->
+              We researched materials, design systems, budgeting constraints, and departmental
+              brand guidelines. A project plan with milestones and assigned responsibilities
+              was created to keep the team on track throughout the semester.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot step-3">
+            <i data-lucide="pen-tool"></i>
+          </div>
+          <div class="timeline-card glass-section">
+            <div class="timeline-step-badge">Step 03</div>
+            <h4>Design & Prototyping</h4>
+            <p>
+              <!-- TODO: Describe your design/mockup phase -->
+              Using digital design tools, we created mockups and prototypes of the hallway redesign
+              elements — signage layouts, display positions, and material choices.
+              Feedback from faculty and peers shaped the final design direction.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot step-4">
+            <i data-lucide="shopping-cart"></i>
+          </div>
+          <div class="timeline-card glass-section">
+            <div class="timeline-step-badge">Step 04</div>
+            <h4>Procurement</h4>
+            <p>
+              <!-- TODO: Describe materials/items purchased -->
+              Within our $1,250 budget, we sourced all necessary materials and components.
+              This included display materials, mounting hardware, signage printing,
+              and any technology needed for the installation. Total spent: $1,150.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot step-5">
+            <i data-lucide="hammer"></i>
+          </div>
+          <div class="timeline-card glass-section">
+            <div class="timeline-step-badge">Step 05</div>
+            <h4>Installation</h4>
+            <p>
+              <!-- TODO: Describe the installation process -->
+              The team physically implemented the hallway improvements in the Reber Building.
+              This involved coordinating with building management, precise measurements,
+              installation of all display and signage elements, and on-site problem-solving.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot step-6">
+            <i data-lucide="camera"></i>
+          </div>
+          <div class="timeline-card glass-section">
+            <div class="timeline-step-badge">Step 06</div>
+            <h4>360° Photography & Virtual Tour</h4>
+            <p>
+              <!-- TODO: Describe your 360 photography process -->
+              After installation, we captured the hallway using equirectangular 360° photography.
+              The images were processed and loaded into our Pannellum-based virtual tour,
+              complete with interactive hotspots and multi-scene navigation.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot step-7">
+            <i data-lucide="flag"></i>
+          </div>
+          <div class="timeline-card glass-section">
+            <div class="timeline-step-badge">Step 07</div>
+            <h4>Final Showcase</h4>
+            <p>
+              The completed hallway and virtual tour were presented at Penn State's
+              Capstone Showcase — demonstrating both the physical renovation and
+              the web-based immersive experience to students, faculty, and guests.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── PAGE: TEAM ── -->
+    <section id="page-team" class="page">
+      <div class="page-header">
+        <button class="back-btn" onclick="navigate('dashboard')"><i data-lucide="arrow-left"></i> Back</button>
+        <h2>Meet the Team</h2>
+        <span class="page-subtitle">Kinetic Engineering Collective</span>
+      </div>
+
+      <div class="team-grid">
+
+        <!-- TODO: Replace with real team member details -->
+        <div class="member-card glass-section">
+          <div class="member-avatar av-1">IK</div>
+          <h4 class="member-name">Ilham Kassim</h4>
+          <span class="member-role">Lead Developer</span>
+          <p class="member-bio">
+            <!-- TODO: Short bio -->
+            Mechanical Engineering student specialising in virtual experience
+            development and web technologies.
+          </p>
+          <div class="member-links">
+            <a href="mailto:ilhamkassim2003@gmail.com" class="member-link email">
+              <i data-lucide="mail"></i> Email
+            </a>
+            <a href="#" class="member-link linkedin" target="_blank">
+              <!-- TODO: Replace # with LinkedIn URL -->
+              <i data-lucide="linkedin"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <div class="member-card glass-section">
+          <div class="member-avatar av-2">TM</div>
+          <h4 class="member-name"><!-- TODO: Name --></h4>
+          <span class="member-role"><!-- TODO: Role --></span>
+          <p class="member-bio"><!-- TODO: Short bio --></p>
+          <div class="member-links">
+            <a href="mailto:" class="member-link email"><i data-lucide="mail"></i> Email</a>
+            <a href="#" class="member-link linkedin" target="_blank"><i data-lucide="linkedin"></i> LinkedIn</a>
+          </div>
+        </div>
+
+        <div class="member-card glass-section">
+          <div class="member-avatar av-3">TM</div>
+          <h4 class="member-name"><!-- TODO: Name --></h4>
+          <span class="member-role"><!-- TODO: Role --></span>
+          <p class="member-bio"><!-- TODO: Short bio --></p>
+          <div class="member-links">
+            <a href="mailto:" class="member-link email"><i data-lucide="mail"></i> Email</a>
+            <a href="#" class="member-link linkedin" target="_blank"><i data-lucide="linkedin"></i> LinkedIn</a>
+          </div>
+        </div>
+
+        <div class="member-card glass-section">
+          <div class="member-avatar av-4">TM</div>
+          <h4 class="member-name"><!-- TODO: Name --></h4>
+          <span class="member-role"><!-- TODO: Role --></span>
+          <p class="member-bio"><!-- TODO: Short bio --></p>
+          <div class="member-links">
+            <a href="mailto:" class="member-link email"><i data-lucide="mail"></i> Email</a>
+            <a href="#" class="member-link linkedin" target="_blank"><i data-lucide="linkedin"></i> LinkedIn</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── PAGE: BUDGET ── -->
+    <section id="page-budget" class="page">
+      <div class="page-header">
+        <button class="back-btn" onclick="navigate('dashboard')"><i data-lucide="arrow-left"></i> Back</button>
+        <h2>Our Spending</h2>
+        <span class="page-subtitle">Budget tracking for the project</span>
+      </div>
+
+      <div class="budget-hero glass-section">
+        <div class="budget-hero-left">
+          <span class="budget-label">Total Spent</span>
+          <div class="budget-big-num">$1,150<span>.00</span></div>
+          <span class="budget-of">of $1,250.00 budget</span>
+          <div class="budget-hero-bar-wrap">
+            <div class="budget-hero-bar-track">
+              <div class="budget-hero-bar-fill" data-width="92%"></div>
+            </div>
+            <div class="budget-hero-pct">92% used · $100 remaining</div>
+          </div>
+        </div>
+        <div class="budget-hero-right">
+          <div class="budget-stat">
+            <span class="bs-val">$1,250</span>
+            <span class="bs-key">Total Budget</span>
+          </div>
+          <div class="budget-stat">
+            <span class="bs-val">$1,150</span>
+            <span class="bs-key">Amount Spent</span>
+          </div>
+          <div class="budget-stat">
+            <span class="bs-val">$100</span>
+            <span class="bs-key">Remaining</span>
+          </div>
+          <div class="budget-stat">
+            <span class="bs-val">92%</span>
+            <span class="bs-key">Utilisation</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spending Breakdown -->
+      <div class="glass-section">
+        <h4 class="section-label">Spending Breakdown</h4>
+        <div class="breakdown-list">
+          <!-- TODO: Replace with real spending categories and amounts -->
+          <div class="breakdown-item">
+            <span class="bi-label"><i data-lucide="package"></i> Materials & Supplies</span>
+            <div class="bi-bar-wrap">
+              <div class="bi-bar" style="width:0%" data-width="60%"></div>
+            </div>
+            <span class="bi-amount">$690.00</span>
+          </div>
+          <div class="breakdown-item">
+            <span class="bi-label"><i data-lucide="printer"></i> Printing & Signage</span>
+            <div class="bi-bar-wrap">
+              <div class="bi-bar" style="width:0%" data-width="26%"></div>
+            </div>
+            <span class="bi-amount">$300.00</span>
+          </div>
+          <div class="breakdown-item">
+            <span class="bi-label"><i data-lucide="tool"></i> Hardware & Mounting</span>
+            <div class="bi-bar-wrap">
+              <div class="bi-bar" style="width:0%" data-width="14%"></div>
+            </div>
+            <span class="bi-amount">$160.00</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ── PAGE: FUN FACTS ── -->
+    <section id="page-facts" class="page">
+      <div class="page-header">
+        <button class="back-btn" onclick="navigate('dashboard')"><i data-lucide="arrow-left"></i> Back</button>
+        <h2>Did You Know?</h2>
+        <span class="page-subtitle">Fun facts about the project & its impact</span>
+      </div>
+
+      <div class="facts-intro glass-section">
+        <div class="facts-intro-icon"><i data-lucide="lightbulb"></i></div>
+        <div>
+          <h3>Why This Project Matters</h3>
+          <p>
+            The Reber Building hallway renovation and virtual tour supports Penn State's
+            Mechanical Engineering department by creating a more welcoming, informative,
+            and accessible space — for students, faculty, and the broader community.
+          </p>
+        </div>
+      </div>
+
+      <div class="facts-grid">
+
+        <div class="fact-card glass-section">
+          <div class="fact-num fc-1">01</div>
+          <h4>Virtual Tours Boost Engagement</h4>
+          <p>
+            Studies show that virtual tours increase engagement with physical
+            facilities by more than 3× — making our digital walkthrough a
+            powerful recruitment and outreach tool for the ME department.
+          </p>
+        </div>
+
+        <div class="fact-card glass-section">
+          <div class="fact-num fc-2">02</div>
+          <h4>Accessible Anytime, Anywhere</h4>
+          <p>
+            Prospective students from around the world can now explore the
+            Reber Building hallway without travelling to State College —
+            opening the department to a truly global audience.
+          </p>
+        </div>
+
+        <div class="fact-card glass-section">
+          <div class="fact-num fc-3">03</div>
+          <h4>Open-Source Technology</h4>
+          <p>
+            Our virtual tour is powered by Pannellum, an open-source
+            WebGL panoramic viewer — the same technology used by
+            thousands of institutions for interactive virtual experiences.
+          </p>
+        </div>
+
+        <div class="fact-card glass-section">
+          <div class="fact-num fc-4">04</div>
+          <h4>The Reber Building</h4>
+          <p>
+            <!-- TODO: Add a real fact about the Reber Building -->
+            The Reber Building is home to Penn State's Department of
+            Mechanical Engineering — one of the top-ranked ME programs
+            in the United States.
+          </p>
+        </div>
+
+        <div class="fact-card glass-section">
+          <div class="fact-num fc-5">05</div>
+          <h4>Student-Led, Real Impact</h4>
+          <p>
+            Every element of this project — from physical installation
+            to the web experience — was designed, built, and delivered
+            by undergraduate students as their capstone project.
+          </p>
+        </div>
+
+        <div class="fact-card glass-section">
+          <div class="fact-num fc-6">06</div>
+          <h4>Under Budget, On Time</h4>
+          <p>
+            The team completed the full hallway renovation and virtual tour
+            within the allocated $1,250 budget, spending $1,150
+            — delivering a high-quality result with $100 to spare.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+  </div><!-- /.content -->
+</main>
+
+<!-- ══════════════════════════════════════════
+     TOUR MODAL
+══════════════════════════════════════════ -->
+<div class="modal-overlay" id="tourModal">
+  <div class="modal-container">
+    <div class="modal-header">
+      <div class="modal-title">
+        <i data-lucide="globe"></i>
+        <span>360° Virtual Tour — Reber Building</span>
+      </div>
+      <button class="modal-close" onclick="closeTourModal()">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <iframe id="tourFrame" src="" title="360° Virtual Tour" allowfullscreen frameborder="0"></iframe>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>lucide.createIcons();</script>
+</body>
+</html>

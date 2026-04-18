@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>360° Virtual Tour</title>
+
+  <!-- Pannellum CSS & JS from CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
+  <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%; height: 100%;
+      background: #080818;
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+    }
+
+    #panorama {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ── Scene Selector UI ── */
+    #scene-nav {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      gap: 10px;
+      background: rgba(8,8,24,0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 40px;
+      padding: 10px 16px;
+    }
+    .scene-btn {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      color: #a0a0cc;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 6px 16px;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s;
+      white-space: nowrap;
+    }
+    .scene-btn:hover,
+    .scene-btn.active {
+      background: linear-gradient(135deg, rgba(108,99,255,0.55), rgba(0,212,255,0.4));
+      color: #fff;
+      border-color: rgba(108,99,255,0.5);
+    }
+
+    /* Loading state */
+    #loading-screen {
+      position: absolute;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #080818;
+      color: #a0a0cc;
+      gap: 16px;
+      font-size: 0.9rem;
+      transition: opacity 0.5s ease;
+    }
+    #loading-screen.hidden { opacity: 0; pointer-events: none; }
+    .spinner {
+      width: 42px; height: 42px;
+      border: 3px solid rgba(108,99,255,0.25);
+      border-top-color: #6c63ff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* No panorama placeholder */
+    #placeholder {
+      display: none;
+      position: absolute;
+      inset: 0;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+      color: #5a5a80;
+      font-size: 0.9rem;
+      background: #080818;
+      text-align: center;
+      padding: 40px;
+    }
+    #placeholder svg { width: 64px; height: 64px; color: #3a3a60; }
+    #placeholder h3 { color: #a0a0cc; font-size: 1.1rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Loading screen -->
+  <div id="loading-screen">
+    <div class="spinner"></div>
+    <span>Loading panorama…</span>
+  </div>
+
+  <!-- No-image placeholder (shown if images not yet added) -->
+  <div id="placeholder">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </svg>
+    <h3>Panorama Coming Soon</h3>
+    <p>Add your 360° image files and update the scene config below to get started.</p>
+    <code style="background:rgba(255,255,255,0.05);padding:8px 16px;border-radius:8px;font-size:0.8rem;color:#6c63ff;">
+      scenes['scene1'].panorama = 'images/scene1.jpg'
+    </code>
+  </div>
+
+  <!-- Pannellum container -->
+  <div id="panorama"></div>
+
+  <!-- Scene navigation bar -->
+  <div id="scene-nav">
+    <!-- TODO: Update labels to match your real scene names -->
+    <button class="scene-btn active" data-scene="scene1">Entrance Hall</button>
+    <button class="scene-btn" data-scene="scene2">Main Lobby</button>
+    <button class="scene-btn" data-scene="scene3">Outdoor Area</button>
+    <button class="scene-btn" data-scene="scene4">Lab / Studio</button>
+  </div>
+
+  <script>
+    /* ════════════════════════════════════════════════════════
+       SCENE CONFIGURATION
+       ════════════════════════════════════════════════════════
+       TODO: Replace each `panorama` value with the path to
+       your actual equirectangular 360° JPG/PNG image.
+
+       Hotspot types:
+         - 'info' → shows a tooltip / info panel
+         - 'scene' → navigates to another scene
+    ════════════════════════════════════════════════════════ */
+    const sceneConfig = {
+      default: {
+        firstScene: 'scene1',
+        sceneFadeDuration: 1000,
+        autoLoad: true,
+        showControls: true,
+        compass: false,
+        hfov: 110,
+        minHfov: 50,
+        maxHfov: 130,
+        keyboardZoom: true,
+        mouseZoom: true,
+      },
+      scenes: {
+        scene1: {
+          title: 'Entrance Hall',
+          // TODO: replace with real image path, e.g. 'images/entrance.jpg'
+          panorama: '',
+          hotSpots: [
+            {
+              pitch: -5,
+              yaw: 90,
+              type: 'scene',
+              text: 'Go to Main Lobby',
+              sceneId: 'scene2',
+            },
+            {
+              pitch: 10,
+              yaw: -45,
+              type: 'info',
+              text: 'Main Entrance — click to learn more',
+            },
+          ],
+        },
+        scene2: {
+          title: 'Main Lobby',
+          panorama: '',
+          hotSpots: [
+            {
+              pitch: -3,
+              yaw: 180,
+              type: 'scene',
+              text: 'Back to Entrance',
+              sceneId: 'scene1',
+            },
+            {
+              pitch: 0,
+              yaw: 45,
+              type: 'scene',
+              text: 'Go to Outdoor Area',
+              sceneId: 'scene3',
+            },
+          ],
+        },
+        scene3: {
+          title: 'Outdoor Area',
+          panorama: '',
+          hotSpots: [
+            {
+              pitch: 5,
+              yaw: 135,
+              type: 'scene',
+              text: 'Go to Lab / Studio',
+              sceneId: 'scene4',
+            },
+          ],
+        },
+        scene4: {
+          title: 'Lab / Studio',
+          panorama: '',
+          hotSpots: [
+            {
+              pitch: -8,
+              yaw: -90,
+              type: 'scene',
+              text: 'Back to Outdoor Area',
+              sceneId: 'scene3',
+            },
+            {
+              pitch: 15,
+              yaw: 20,
+              type: 'info',
+              text: 'Development workstation',
+            },
+          ],
+        },
+      },
+    };
+
+    /* ── Determine start scene from URL param ── */
+    const urlParams = new URLSearchParams(window.location.search);
+    const startScene = urlParams.get('scene') || sceneConfig.default.firstScene;
+    if (sceneConfig.scenes[startScene]) {
+      sceneConfig.default.firstScene = startScene;
+    }
+
+    /* ── Check if panorama images exist ── */
+    const hasPanoramas = Object.values(sceneConfig.scenes).some(s => s.panorama !== '');
+
+    const loadingScreen = document.getElementById('loading-screen');
+    const placeholder   = document.getElementById('placeholder');
+    const sceneNav      = document.getElementById('scene-nav');
+
+    if (!hasPanoramas) {
+      // Show placeholder instead of Pannellum
+      loadingScreen.classList.add('hidden');
+      placeholder.style.display = 'flex';
+    } else {
+      /* ── Init Pannellum ── */
+      const viewer = pannellum.viewer('panorama', {
+        ...sceneConfig.default,
+        scenes: sceneConfig.scenes,
+      });
+
+      viewer.on('load', () => {
+        loadingScreen.classList.add('hidden');
+        syncNavButtons(viewer.getScene());
+      });
+
+      viewer.on('scenechange', (sceneId) => {
+        syncNavButtons(sceneId);
+      });
+
+      /* ── Scene nav button logic ── */
+      document.querySelectorAll('.scene-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const scene = btn.dataset.scene;
+          viewer.loadScene(scene);
+        });
+      });
+
+      function syncNavButtons(activeScene) {
+        document.querySelectorAll('.scene-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.scene === activeScene);
+        });
+      }
+    }
+  </script>
+</body>
+</html>
