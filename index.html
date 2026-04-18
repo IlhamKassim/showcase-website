@@ -18,11 +18,7 @@
   <!-- Brand -->
   <div class="sidebar-brand">
     <div class="psu-logo">
-      <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="60" height="60" rx="12" fill="white" fill-opacity="0.12"/>
-        <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
-              font-family="Georgia, serif" font-size="20" font-weight="bold" fill="white">PSU</text>
-      </svg>
+      <img src="penn-state-logo.png" alt="Penn State" />
     </div>
     <div class="brand-text">
       <span class="brand-name">Penn State</span>
@@ -86,11 +82,10 @@
       </button>
       <div class="topbar-project">
         <div class="topbar-psu-mark">
-          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" width="44" height="44">
-            <rect width="44" height="44" rx="10" fill="#1e407c"/>
-            <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
-                  font-family="Georgia, serif" font-size="14" font-weight="bold" fill="white">PSU</text>
-          </svg>
+          <img src="penn-state-logo.png" alt="Penn State" class="topbar-logo-img" />
+        </div>
+        <div class="topbar-me-mark">
+          <img src="mechanical-engineering-logo.png" alt="Mechanical Engineering" class="topbar-me-img" />
         </div>
         <div>
           <h1 class="topbar-title">Reber Building</h1>
@@ -123,8 +118,7 @@
 
         <!-- CARD: Let's Walk -->
         <div class="dash-card card-walk" onclick="openTourModal()">
-          <div class="card-img-bg" style="background: linear-gradient(145deg,#0d1b3e 0%,#1e407c 60%,#2a5fa8 100%);">
-            <div class="card-img-pattern"></div>
+          <div class="card-img-bg" style="background: url('lets-walk.png') center/cover no-repeat, linear-gradient(145deg,#0d1b3e,#1e407c);">
           </div>
           <div class="card-overlay-walk">
             <div class="walk-icon-ring">
@@ -141,9 +135,7 @@
 
         <!-- CARD: About the Project -->
         <div class="dash-card card-about" onclick="navigate('about')">
-          <div class="card-img-bg" style="background: linear-gradient(135deg,#1a3a60 0%,#2d6a9f 100%);">
-            <!-- Placeholder image; replace: style="background-image:url('images/hallway-interior.jpg')" -->
-            <div class="card-img-pattern"></div>
+          <div class="card-img-bg" style="background: url('about-the-project.png') center/cover no-repeat, linear-gradient(135deg,#1a3a60,#2d6a9f);">
           </div>
           <div class="card-label-overlay">
             <span class="card-label-tag">
@@ -155,8 +147,7 @@
 
         <!-- CARD: Design Process -->
         <div class="dash-card card-design" onclick="navigate('design')">
-          <div class="card-img-bg" style="background: linear-gradient(135deg,#101828 0%,#2d3a55 100%);">
-            <div class="card-img-pattern"></div>
+          <div class="card-img-bg" style="background: url('design-process.png') center/cover no-repeat, linear-gradient(135deg,#101828,#2d3a55);">
           </div>
           <div class="card-label-overlay">
             <span class="card-label-tag">
@@ -225,9 +216,7 @@
       </div>
 
       <div class="about-hero glass-section">
-        <div class="about-hero-img" style="background: linear-gradient(135deg,#1e407c,#2a6aad);">
-          <!-- TODO: Replace with background-image: url('images/hallway.jpg') -->
-          <div class="card-img-pattern"></div>
+        <div class="about-hero-img" style="background: url('about-the-project.png') center/cover no-repeat, linear-gradient(135deg,#1e407c,#2a6aad);">
           <div class="about-hero-label">Reber Building · Penn State</div>
         </div>
         <div class="about-hero-text">
