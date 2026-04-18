@@ -113,12 +113,15 @@ No frameworks. No build step. Runs entirely in the browser.
 
 **Kinetic Engineering Collective**
 
-| Name | Role |
-|---|---|
-| Ilham Kassim | Lead Developer |
-| *(TODO)* | *(TODO)* |
-| *(TODO)* | *(TODO)* |
-| *(TODO)* | *(TODO)* |
+| Name | Role | LinkedIn |
+|---|---|---|
+| Michelle Kelly | *(TODO)* | [linkedin.com/in/michellekelly27](https://www.linkedin.com/in/michellekelly27/) |
+| Joshua Bruce | *(TODO)* | — |
+| Edward Warren | *(TODO)* | — |
+| Ilham Kassim | Lead Developer | [linkedin.com/in/ilhamkassim](https://www.linkedin.com/in/ilhamkassim/) |
+| Adriana Amizal | *(TODO)* | [linkedin.com/in/adrianaamizal04](https://www.linkedin.com/in/adrianaamizal04/) |
+| Siddhardh Tekumalla | *(TODO)* | — |
+| Rahul Deshpande | *(TODO)* | [linkedin.com/in/rahulmadhavdeshpande](https://www.linkedin.com/in/rahulmadhavdeshpande/) |
 
 ---
 

@@ -715,9 +715,14 @@ p { line-height: 1.7; }
    TEAM PAGE
 ═══════════════════════════════════════════════════════ */
 .team-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
+  justify-content: center;
+}
+.team-grid .member-card {
+  flex: 0 1 calc(25% - 15px);
+  min-width: 220px;
 }
 .member-card {
   display: flex;
@@ -742,6 +747,9 @@ p { line-height: 1.7; }
 .av-2 { background: linear-gradient(135deg, var(--c2), var(--c3)); }
 .av-3 { background: linear-gradient(135deg, var(--c4), var(--c5)); }
 .av-4 { background: linear-gradient(135deg, var(--c6), var(--c7)); }
+.av-5 { background: linear-gradient(135deg, #e0454a, #f59e42); }
+.av-6 { background: linear-gradient(135deg, #2ecc9a, #1e407c); }
+.av-7 { background: linear-gradient(135deg, #9b59b6, #009cde); }
 .member-name { font-size: 1rem; font-weight: 700; color: var(--text); }
 .member-role {
   font-size: 0.75rem;
