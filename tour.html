@@ -85,24 +85,6 @@
       animation: spin 0.8s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* No panorama placeholder */
-    #placeholder {
-      display: none;
-      position: absolute;
-      inset: 0;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 16px;
-      color: #5a5a80;
-      font-size: 0.9rem;
-      background: #080818;
-      text-align: center;
-      padding: 40px;
-    }
-    #placeholder svg { width: 64px; height: 64px; color: #3a3a60; }
-    #placeholder h3 { color: #a0a0cc; font-size: 1.1rem; }
   </style>
 </head>
 <body>
@@ -113,16 +95,6 @@
     <span>Loading panorama…</span>
   </div>
 
-  <!-- No-image placeholder (shown if images not yet added) -->
-  <div id="placeholder">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <circle cx="12" cy="12" r="10"/>
-      <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-    </svg>
-    <h3>Panorama Coming Soon</h3>
-    <p>Add your 360° image files and update the scene config below to get started.</p>
-  </div>
-
   <!-- Pannellum container -->
   <div id="panorama"></div>
 
@@ -131,7 +103,7 @@
     <button class="scene-btn active" data-scene="scene1">Display 1 — Lab Info Panel</button>
     <button class="scene-btn" data-scene="scene2">Display 2 — Cars &amp; Racing</button>
     <button class="scene-btn" data-scene="scene3">Display 3 — Mechanical Counter</button>
-    <button class="scene-btn" data-scene="scene4">Full Hallway View</button>
+    <button class="scene-btn" data-scene="hallway1">Full Hallway Walkthrough</button>
   </div>
 
   <script>
@@ -147,108 +119,342 @@
         maxHfov: 130,
         keyboardZoom: true,
         mouseZoom: true,
+        hotSpotDebug: true,
       },
       scenes: {
+
+        /* ── DISPLAY SCENES ─────────────────────────────────── */
+
         scene1: {
           title: 'Display 1 — Lab Information Panel',
           panorama: 'virtual-walkthrough-pic/display-1.JPG',
           hotSpots: [
             {
-              // Hallway leading deeper toward Display 2 — right side of panorama
-              pitch: -10,
-              yaw: 90,
+              // Display 1 orange panel sits at the far-left of the equirectangular
+              pitch: 5, yaw: -150,
+              type: 'info',
+              text: 'Additive/Subtractive Manufacturing, Fluid Flow, Robotics & Energy panels',
+            },
+            {
+              // Hallway continues right (deeper into building) toward Display 2
+              pitch: -10, yaw: 90,
               type: 'scene',
               text: 'Go to Display 2 — Cars & Racing',
               sceneId: 'scene2',
             },
-            {
-              // Display 1 orange panel is at the far left of the panorama
-              pitch: 5,
-              yaw: -150,
-              type: 'info',
-              text: 'Additive/Subtractive Manufacturing, Fluid Flow, Robotics & Energy panels',
-            },
           ],
         },
+
         scene2: {
           title: 'Display 2 — Cars & Racing',
           panorama: 'virtual-walkthrough-pic/display-2.JPG',
           hotSpots: [
             {
-              // Hallway back toward entrance / Display 1 — left side of panorama
-              pitch: -10,
-              yaw: -100,
+              // Hallway back toward entrance / Display 1 — left side of pano
+              pitch: -10, yaw: -100,
               type: 'scene',
               text: 'Back to Display 1 — Lab Info Panel',
               sceneId: 'scene1',
             },
             {
-              // Hallway continuing deeper toward Display 3 — right side of panorama
-              pitch: -10,
-              yaw: 100,
+              // Hallway continuing deeper toward Display 3 — right side of pano
+              pitch: -10, yaw: 100,
               type: 'scene',
               text: 'Go to Display 3 — Mechanical Counter',
               sceneId: 'scene3',
             },
             {
-              // Display 2 case wraps across both edges — directly behind default view
-              pitch: 10,
-              yaw: 175,
+              // Display 2 case wraps both edges — almost directly behind default view
+              pitch: 10, yaw: 175,
               type: 'info',
               text: '2025 Nittany Motorsports Formula 1 car — mounted with steel cables',
             },
           ],
         },
+
         scene3: {
           title: 'Display 3 — Mechanical Counter',
           panorama: 'virtual-walkthrough-pic/display-3.JPG',
           hotSpots: [
             {
-              // Hallway back toward Display 2 — left side of panorama (blue seating area)
-              pitch: -10,
-              yaw: -100,
+              // Hallway back toward Display 2 — left side of pano (blue seating area)
+              pitch: -10, yaw: -100,
               type: 'scene',
               text: 'Back to Display 2 — Cars & Racing',
               sceneId: 'scene2',
             },
             {
-              // Orange wooden counter/display is right of center in the panorama
-              pitch: 5,
-              yaw: 20,
+              // Orange wooden counter/display is right of center in the pano
+              pitch: 5, yaw: 20,
               type: 'info',
               text: 'Hand-crank visitor counter — each digit represents a different technology era',
             },
             {
-              // Hallway continuing further — right side of panorama
-              pitch: -10,
-              yaw: 90,
+              // Hallway continuing past Display 3 — right side of pano
+              pitch: -10, yaw: 90,
               type: 'scene',
-              text: 'Go to Full Hallway View',
-              sceneId: 'scene4',
+              text: 'Start Hallway Walkthrough',
+              sceneId: 'hallway1',
             },
           ],
         },
-        scene4: {
-          title: 'Full Hallway View',
+
+        /* ── HALLWAY WALKTHROUGH ────────────────────────────── */
+        /*
+         * Images: virtual-walkthrough-pic/hallway-1.JPG … hallway-12.JPG
+         * Yaw/pitch derived from visual analysis of each equirectangular:
+         *   yaw  = ((x_pixel / 11904) − 0.5) × 360
+         *   pitch = (0.5 − (y_pixel / 5952)) × 180
+         * hotSpotDebug: true is enabled — open the browser console and
+         * click anywhere in the panorama to log the exact yaw/pitch under
+         * your cursor for fine-tuning.
+         */
+
+        hallway1: {
+          title: 'Hallway — Stop 1 of 12',
           panorama: 'virtual-walkthrough-pic/hallway-1.JPG',
           hotSpots: [
             {
-              // Colorful wall section / display area deeper into the building — far left
-              pitch: -10,
-              yaw: -130,
+              // Interior direction leads back toward Display 3 — far left of pano
+              pitch: -10, yaw: -130,
               type: 'scene',
               text: 'Back to Display 3 — Mechanical Counter',
               sceneId: 'scene3',
             },
             {
-              // Entrance glass doors are dead center — info about the building
-              pitch: 5,
-              yaw: 0,
-              type: 'info',
-              text: 'First-floor hallway of Reber Building — Penn State Mechanical Engineering',
+              // Glass corridor transition doors sit dead-center — walk through them
+              pitch: -10, yaw: 0,
+              type: 'scene',
+              text: 'Continue → Stop 2',
+              sceneId: 'hallway2',
             },
           ],
         },
+
+        hallway2: {
+          title: 'Hallway — Stop 2 of 12',
+          panorama: 'virtual-walkthrough-pic/hallway-2.JPG',
+          hotSpots: [
+            {
+              // Exit/glass doors visible at yaw ≈ -85° (center-left)
+              pitch: -10, yaw: -85,
+              type: 'scene',
+              text: '← Back to Stop 1',
+              sceneId: 'hallway1',
+            },
+            {
+              // Hallway continues to the right past the Display 1 panel
+              pitch: -10, yaw: 100,
+              type: 'scene',
+              text: 'Continue → Stop 3',
+              sceneId: 'hallway3',
+            },
+          ],
+        },
+
+        hallway3: {
+          title: 'Hallway — Stop 3 of 12',
+          panorama: 'virtual-walkthrough-pic/hallway-3.JPG',
+          hotSpots: [
+            {
+              // "Dept of ME" panel is left-center; back direction is just past it
+              pitch: -10, yaw: -90,
+              type: 'scene',
+              text: '← Back to Stop 2',
+              sceneId: 'hallway2',
+            },
+            {
+              // Hallway continues to the right
+              pitch: -10, yaw: 90,
+              type: 'scene',
+              text: 'Continue → Stop 4',
+              sceneId: 'hallway4',
+            },
+          ],
+        },
+
+        hallway4: {
+          title: 'Hallway — Stop 4 of 12',
+          panorama: 'virtual-walkthrough-pic/hallway-4.JPG',
+          hotSpots: [
+            {
+              // Exit doors visible far-left; back toward stop 3
+              pitch: -10, yaw: -120,
+              type: 'scene',
+              text: '← Back to Stop 3',
+              sceneId: 'hallway3',
+            },
+            {
+              // Corridor continues past the blue kiosk units to the right
+              pitch: -10, yaw: 80,
+              type: 'scene',
+              text: 'Continue → Stop 5',
+              sceneId: 'hallway5',
+            },
+          ],
+        },
+
+        hallway5: {
+          title: 'Hallway — Stop 5 of 12',
+          panorama: 'virtual-walkthrough-pic/hallway-5.JPG',
+          hotSpots: [
+            {
+              // Green EXIT sign is at the far-left; back toward stop 4
+              pitch: -10, yaw: -130,
+              type: 'scene',
+              text: '← Back to Stop 4',
+              sceneId: 'hallway4',
+            },
+            {
+              // Display 2 case (orange frame, dark panels) is far-right; continue past it
+              pitch: -10, yaw: 120,
+              type: 'scene',
+              text: 'Continue → Stop 6',
+              sceneId: 'hallway6',
+            },
+          ],
+        },
+
+        hallway6: {
+          title: 'Hallway — Stop 6 of 12',
+          panorama: 'virtual-walkthrough-pic/hallway-6.JPG',
+          hotSpots: [
+            {
+              // Portrait gallery is center-right; corridor back is to the left
+              pitch: -10, yaw: -110,
+              type: 'scene',
+              text: '← Back to Stop 5',
+              sceneId: 'hallway5',
+            },
+            {
+              // Hallway continues to the right past the gallery
+              pitch: -10, yaw: 100,
+              type: 'scene',
+              text: 'Continue → Stop 7',
+              sceneId: 'hallway7',
+            },
+          ],
+        },
+
+        hallway7: {
+          title: 'Hallway — Stop 7 of 12',
+          panorama: 'virtual-walkthrough-pic/hallway-7.JPG',
+          hotSpots: [
+            {
+              // Blue seating on left; corridor back is further left
+              pitch: -10, yaw: -110,
+              type: 'scene',
+              text: '← Back to Stop 6',
+              sceneId: 'hallway6',
+            },
+            {
+              // Blue seating on right; corridor continues past it
+              pitch: -10, yaw: 90,
+              type: 'scene',
+              text: 'Continue → Stop 8',
+              sceneId: 'hallway8',
+            },
+          ],
+        },
+
+        hallway8: {
+          title: 'Hallway — Stop 8 of 12',
+          panorama: 'virtual-walkthrough-pic/hallway-8.JPG',
+          hotSpots: [
+            {
+              // Corridor goes back to the left
+              pitch: -10, yaw: -100,
+              type: 'scene',
+              text: '← Back to Stop 7',
+              sceneId: 'hallway7',
+            },
+            {
+              // Blue vertical blinds are far-right; continue past them
+              pitch: -10, yaw: 90,
+              type: 'scene',
+              text: 'Continue → Stop 9',
+              sceneId: 'hallway9',
+            },
+          ],
+        },
+
+        hallway9: {
+          title: 'Hallway — Stop 9 of 12',
+          panorama: 'virtual-walkthrough-pic/hallway-9.JPG',
+          hotSpots: [
+            {
+              // Blue blinds are far-left (came from that direction)
+              pitch: -10, yaw: -130,
+              type: 'scene',
+              text: '← Back to Stop 8',
+              sceneId: 'hallway8',
+            },
+            {
+              // QR-code TV is center-right; continue down the corridor
+              pitch: -10, yaw: 100,
+              type: 'scene',
+              text: 'Continue → Stop 10',
+              sceneId: 'hallway10',
+            },
+          ],
+        },
+
+        hallway10: {
+          title: 'Hallway — Stop 10 of 12',
+          panorama: 'virtual-walkthrough-pic/hallway-10.JPG',
+          hotSpots: [
+            {
+              // Long corridor recedes to the left; that's where we came from
+              pitch: -10, yaw: -110,
+              type: 'scene',
+              text: '← Back to Stop 9',
+              sceneId: 'hallway9',
+            },
+            {
+              // Past the blue seating on the right — corridor continues
+              pitch: -10, yaw: 130,
+              type: 'scene',
+              text: 'Continue → Stop 11',
+              sceneId: 'hallway11',
+            },
+          ],
+        },
+
+        hallway11: {
+          title: 'Hallway — Stop 11 of 12',
+          panorama: 'virtual-walkthrough-pic/hallway-11.JPG',
+          hotSpots: [
+            {
+              // Corridor leading back to stop 10 is to the right
+              pitch: -10, yaw: 100,
+              type: 'scene',
+              text: '← Back to Stop 10',
+              sceneId: 'hallway10',
+            },
+            {
+              // Stairwell/atrium opening is straight ahead (center of pano)
+              pitch: -10, yaw: 10,
+              type: 'scene',
+              text: 'Continue → Stop 12',
+              sceneId: 'hallway12',
+            },
+          ],
+        },
+
+        hallway12: {
+          title: 'Hallway — Stop 12 of 12',
+          panorama: 'virtual-walkthrough-pic/hallway-12.JPG',
+          hotSpots: [
+            {
+              // Corridor back to stop 11 recedes to the left
+              pitch: -10, yaw: -110,
+              type: 'scene',
+              text: '← Back to Stop 11',
+              sceneId: 'hallway11',
+            },
+          ],
+        },
+
       },
     };
 
@@ -259,44 +465,40 @@
       sceneConfig.default.firstScene = startScene;
     }
 
-    /* ── Check if panorama images exist ── */
-    const hasPanoramas = Object.values(sceneConfig.scenes).some(s => s.panorama !== '');
+    /* ── Init Pannellum ── */
+    const viewer = pannellum.viewer('panorama', {
+      ...sceneConfig.default,
+      scenes: sceneConfig.scenes,
+    });
 
     const loadingScreen = document.getElementById('loading-screen');
-    const placeholder   = document.getElementById('placeholder');
-    const sceneNav      = document.getElementById('scene-nav');
 
-    if (!hasPanoramas) {
+    viewer.on('load', () => {
       loadingScreen.classList.add('hidden');
-      placeholder.style.display = 'flex';
-    } else {
-      /* ── Init Pannellum ── */
-      const viewer = pannellum.viewer('panorama', {
-        ...sceneConfig.default,
-        scenes: sceneConfig.scenes,
-      });
+      syncNavButtons(viewer.getScene());
+    });
 
-      viewer.on('load', () => {
-        loadingScreen.classList.add('hidden');
-        syncNavButtons(viewer.getScene());
-      });
+    viewer.on('scenechange', (sceneId) => {
+      syncNavButtons(sceneId);
+    });
 
-      viewer.on('scenechange', (sceneId) => {
-        syncNavButtons(sceneId);
+    /* ── Scene nav button logic ── */
+    document.querySelectorAll('.scene-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        viewer.loadScene(btn.dataset.scene);
       });
+    });
 
-      /* ── Scene nav button logic ── */
+    function syncNavButtons(activeScene) {
       document.querySelectorAll('.scene-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          viewer.loadScene(btn.dataset.scene);
-        });
+        // Highlight "Full Hallway Walkthrough" for any hallway scene
+        const btnScene = btn.dataset.scene;
+        const isHallwayBtn = btnScene === 'hallway1';
+        const isActiveHallway = activeScene.startsWith('hallway');
+        btn.classList.toggle('active',
+          isHallwayBtn ? isActiveHallway : btnScene === activeScene
+        );
       });
-
-      function syncNavButtons(activeScene) {
-        document.querySelectorAll('.scene-btn').forEach(btn => {
-          btn.classList.toggle('active', btn.dataset.scene === activeScene);
-        });
-      }
     }
   </script>
 </body>
