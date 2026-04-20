@@ -474,10 +474,16 @@ p { line-height: 1.7; }
   margin-left: -12px;
 }
 .ta:first-child { margin-left: 0; }
-.ta-1 { background: var(--c1); }
-.ta-2 { background: var(--c2); }
-.ta-3 { background: var(--c3); }
 .ta-plus { background: rgba(30,64,124,0.12); color: var(--psu-navy); border-color: var(--border); font-size: 0.78rem; }
+.ta-img {
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 3px solid var(--card);
+  margin-left: -12px;
+}
+.ta-img:first-child { margin-left: 0; }
 
 /* ── CARD: Our Spending ── */
 .card-spending {
@@ -735,21 +741,15 @@ p { line-height: 1.7; }
 }
 .member-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
 .member-avatar {
-  width: 70px; height: 70px;
+  width: 90px; height: 90px;
   border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem; font-weight: 800;
-  color: #fff;
+  object-fit: cover;
+  object-position: center top;
   margin-bottom: 10px;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 20px rgba(30,64,124,0.18);
+  border: 3px solid var(--border);
+  display: block;
 }
-.av-1 { background: linear-gradient(135deg, var(--c1), var(--c2)); }
-.av-2 { background: linear-gradient(135deg, var(--c2), var(--c3)); }
-.av-3 { background: linear-gradient(135deg, var(--c4), var(--c5)); }
-.av-4 { background: linear-gradient(135deg, var(--c6), var(--c7)); }
-.av-5 { background: linear-gradient(135deg, #e0454a, #f59e42); }
-.av-6 { background: linear-gradient(135deg, #2ecc9a, #1e407c); }
-.av-7 { background: linear-gradient(135deg, #9b59b6, #009cde); }
 .member-name { font-size: 1rem; font-weight: 700; color: var(--text); }
 .member-role {
   font-size: 0.75rem;

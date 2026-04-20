@@ -6,4 +6,4 @@ __pycache__/
 *.pyc
 
 # Ignore the live data file so it doesn't spam your commit history
-solar_data.json
+solar_data.json.claude/
