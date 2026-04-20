@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>360° Virtual Tour</title>
+  <title>360° Virtual Tour — Reber Building</title>
 
   <!-- Pannellum CSS & JS from CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
@@ -16,6 +16,7 @@
       background: #080818;
       font-family: 'Inter', sans-serif;
       overflow: hidden;
+      color: #e5e5ff;
     }
 
     #panorama {
@@ -23,7 +24,70 @@
       height: 100%;
     }
 
-    /* ── Scene Selector UI ── */
+    /* ── Top: Mode Toggle (Hallway | Displays) ── */
+    #mode-toggle {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      gap: 6px;
+      background: rgba(8,8,24,0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 30px;
+      padding: 6px;
+    }
+    .mode-btn {
+      background: transparent;
+      border: none;
+      border-radius: 24px;
+      color: #a0a0cc;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 8px 20px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.25s, color 0.25s;
+    }
+    .mode-btn:hover { color: #fff; }
+    .mode-btn.active {
+      background: linear-gradient(135deg, rgba(108,99,255,0.55), rgba(0,212,255,0.4));
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(108,99,255,0.25);
+    }
+
+    /* ── Scene Title (bottom-left, above nav bar) ── */
+    #scene-title {
+      position: absolute;
+      bottom: 76px;
+      left: 20px;
+      z-index: 100;
+      pointer-events: none;
+      background: rgba(8,8,24,0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 8px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #fff;
+      max-width: 240px;
+    }
+    #scene-title .eyebrow {
+      display: block;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #6c63ff;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    /* ── Bottom: Contextual Navigation ── */
     #scene-nav {
       position: absolute;
       bottom: 20px;
@@ -31,13 +95,19 @@
       transform: translateX(-50%);
       z-index: 100;
       display: flex;
+      align-items: center;
       gap: 10px;
-      background: rgba(8,8,24,0.7);
+      background: rgba(8,8,24,0.72);
       backdrop-filter: blur(16px);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 40px;
-      padding: 10px 16px;
+      padding: 8px 14px;
+      max-width: calc(100vw - 40px);
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex-wrap: nowrap;
     }
+    #scene-nav::-webkit-scrollbar { display: none; }
     .scene-btn {
       background: rgba(255,255,255,0.07);
       border: 1px solid rgba(255,255,255,0.12);
@@ -45,17 +115,63 @@
       color: #a0a0cc;
       font-size: 0.78rem;
       font-weight: 600;
-      padding: 6px 16px;
+      padding: 8px 16px;
       cursor: pointer;
-      transition: background 0.25s, color 0.25s;
+      transition: background 0.25s, color 0.25s, transform 0.2s;
       white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
-    .scene-btn:hover,
+    .scene-btn:hover:not(:disabled) {
+      background: rgba(108,99,255,0.2);
+      color: #fff;
+      transform: translateY(-1px);
+    }
     .scene-btn.active {
       background: linear-gradient(135deg, rgba(108,99,255,0.55), rgba(0,212,255,0.4));
       color: #fff;
       border-color: rgba(108,99,255,0.5);
     }
+    .scene-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+    .scene-btn.arrow { padding: 8px 12px; font-size: 1rem; }
+
+    /* Hallway progress indicator */
+    #hallway-progress {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .progress-text {
+      font-size: 0.78rem;
+      color: #e5e5ff;
+      font-weight: 600;
+      min-width: 90px;
+      text-align: center;
+    }
+    .progress-track {
+      width: 120px;
+      height: 4px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #6c63ff, #00d4ff);
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+
+    /* Displays nav group */
+    #displays-nav { display: flex; gap: 8px; }
+    #hallway-nav  { display: flex; align-items: center; gap: 10px; }
+
+    /* Hide inactive nav group — !important to beat ID specificity */
+    .nav-group.hidden { display: none !important; }
 
     /* Loading state */
     #loading-screen {
@@ -82,23 +198,17 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* No panorama placeholder */
-    #placeholder {
-      display: none;
-      position: absolute;
-      inset: 0;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 16px;
-      color: #5a5a80;
-      font-size: 0.9rem;
-      background: #080818;
-      text-align: center;
-      padding: 40px;
+    /* Hide Pannellum default controls (we have our own UI) */
+    .pnlm-zoom-controls, .pnlm-fullscreen-toggle-button { opacity: 0.6; }
+
+    /* Responsive */
+    @media (max-width: 720px) {
+      #scene-title { max-width: 200px; font-size: 0.72rem; padding: 8px 12px; }
+      .mode-btn { padding: 6px 14px; font-size: 0.74rem; }
+      .scene-btn { padding: 6px 12px; font-size: 0.72rem; }
+      .progress-track { width: 80px; }
+      .progress-text { min-width: 70px; font-size: 0.72rem; }
     }
-    #placeholder svg { width: 64px; height: 64px; color: #3a3a60; }
-    #placeholder h3 { color: #a0a0cc; font-size: 1.1rem; }
   </style>
 </head>
 <body>
@@ -109,45 +219,166 @@
     <span>Loading panorama…</span>
   </div>
 
-  <!-- No-image placeholder (shown if images not yet added) -->
-  <div id="placeholder">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <circle cx="12" cy="12" r="10"/>
-      <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-    </svg>
-    <h3>Panorama Coming Soon</h3>
-    <p>Add your 360° image files and update the scene config below to get started.</p>
-    <code style="background:rgba(255,255,255,0.05);padding:8px 16px;border-radius:8px;font-size:0.8rem;color:#6c63ff;">
-      scenes['scene1'].panorama = 'images/scene1.jpg'
-    </code>
-  </div>
-
   <!-- Pannellum container -->
   <div id="panorama"></div>
 
-  <!-- Scene navigation bar -->
+  <!-- Scene title (top-left) -->
+  <div id="scene-title">
+    <span class="eyebrow">Now viewing</span>
+    <span id="scene-title-text">Hallway — Stop 1</span>
+  </div>
+
+  <!-- Mode toggle (top-center) -->
+  <div id="mode-toggle">
+    <button class="mode-btn active" data-mode="hallway">
+      <span>🚶</span> Hallway Walk
+    </button>
+    <button class="mode-btn" data-mode="displays">
+      <span>🖼️</span> Displays
+    </button>
+  </div>
+
+  <!-- Contextual nav (bottom-center) -->
   <div id="scene-nav">
-    <!-- TODO: Update labels to match your real scene names -->
-    <button class="scene-btn active" data-scene="scene1">Display 1 — Lab Info Panel</button>
-    <button class="scene-btn" data-scene="scene2">Display 2 — Cars &amp; Racing</button>
-    <button class="scene-btn" data-scene="scene3">Display 3 — Mechanical Counter</button>
+    <!-- Hallway walk controls -->
+    <div id="hallway-nav" class="nav-group">
+      <button class="scene-btn arrow" id="hallway-prev" aria-label="Previous stop">←</button>
+      <div id="hallway-progress">
+        <span class="progress-text" id="hallway-progress-text">Stop 1 / 12</span>
+        <div class="progress-track"><div class="progress-fill" id="hallway-progress-fill" style="width:8.3%"></div></div>
+      </div>
+      <button class="scene-btn arrow" id="hallway-next" aria-label="Next stop">→</button>
+    </div>
+
+    <!-- Displays quick-jump -->
+    <div id="displays-nav" class="nav-group hidden">
+      <button class="scene-btn" data-scene="display-1">Display 1 — Lab Panel</button>
+      <button class="scene-btn" data-scene="display-2">Display 2 — Cars &amp; Racing</button>
+      <button class="scene-btn" data-scene="display-3">Display 3 — Counter</button>
+    </div>
   </div>
 
   <script>
     /* ════════════════════════════════════════════════════════
        SCENE CONFIGURATION
        ════════════════════════════════════════════════════════
-       TODO: Replace each `panorama` value with the path to
-       your actual equirectangular 360° JPG/PNG image.
+       Images live in virtual-walkthrough-pic/.
+       Hallway stops are sequential (hallway-1 → hallway-12).
+       Displays are close-up scenes for each installation.
 
-       Hotspot types:
-         - 'info' → shows a tooltip / info panel
-         - 'scene' → navigates to another scene
+       Hotspot yaw/pitch are reasonable defaults — tweak per
+       scene once you preview and know which direction each
+       panorama is oriented.
     ════════════════════════════════════════════════════════ */
+
+    const HALLWAY_COUNT = 12;
+    const PANO_DIR = 'virtual-walkthrough-pic';
+
+    // Build hallway scenes programmatically
+    function buildHallwayScenes() {
+      const out = {};
+      for (let i = 1; i <= HALLWAY_COUNT; i++) {
+        const id = `hallway-${i}`;
+        const hotSpots = [];
+
+        // Forward to next hallway stop
+        if (i < HALLWAY_COUNT) {
+          hotSpots.push({
+            pitch: -5, yaw: 0,
+            type: 'scene',
+            text: `Continue to Stop ${i + 1}`,
+            sceneId: `hallway-${i + 1}`,
+          });
+        }
+        // Back to previous hallway stop
+        if (i > 1) {
+          hotSpots.push({
+            pitch: -5, yaw: 180,
+            type: 'scene',
+            text: `Back to Stop ${i - 1}`,
+            sceneId: `hallway-${i - 1}`,
+          });
+        }
+
+        out[id] = {
+          title: `Hallway — Stop ${i}`,
+          type: 'equirectangular',
+          panorama: `${PANO_DIR}/hallway-${i}.JPG`,
+          autoLoad: true,
+          hfov: 110,
+          hotSpots,
+        };
+      }
+      return out;
+    }
+
+    const displayScenes = {
+      'display-1': {
+        title: 'Display 1 — Lab Information Panel',
+        type: 'equirectangular',
+        panorama: `${PANO_DIR}/display-1.JPG`,
+        autoLoad: true,
+        hfov: 110,
+        hotSpots: [
+          {
+            pitch: 0, yaw: 180,
+            type: 'scene',
+            text: 'Return to Hallway Walk',
+            sceneId: 'hallway-1',
+          },
+          {
+            pitch: 10, yaw: -45,
+            type: 'info',
+            text: 'Additive/Subtractive Manufacturing, Fluid Flow, Robotics & Energy panels',
+          },
+        ],
+      },
+      'display-2': {
+        title: 'Display 2 — Cars & Racing',
+        type: 'equirectangular',
+        panorama: `${PANO_DIR}/display-2.JPG`,
+        autoLoad: true,
+        hfov: 110,
+        hotSpots: [
+          {
+            pitch: 0, yaw: 180,
+            type: 'scene',
+            text: 'Return to Hallway Walk',
+            sceneId: 'hallway-1',
+          },
+          {
+            pitch: 5, yaw: -30,
+            type: 'info',
+            text: '2025 Nittany Motorsports Formula 1 car — mounted with steel cables',
+          },
+        ],
+      },
+      'display-3': {
+        title: 'Display 3 — Mechanical Counter',
+        type: 'equirectangular',
+        panorama: `${PANO_DIR}/display-3.JPG`,
+        autoLoad: true,
+        hfov: 110,
+        hotSpots: [
+          {
+            pitch: 0, yaw: 180,
+            type: 'scene',
+            text: 'Return to Hallway Walk',
+            sceneId: 'hallway-1',
+          },
+          {
+            pitch: 10, yaw: -60,
+            type: 'info',
+            text: 'Hand-crank visitor counter — each digit represents a different technology era',
+          },
+        ],
+      },
+    };
+
     const sceneConfig = {
       default: {
-        firstScene: 'scene1',
-        sceneFadeDuration: 1000,
+        firstScene: 'hallway-1',
+        sceneFadeDuration: 800,
         autoLoad: true,
         showControls: true,
         compass: false,
@@ -158,137 +389,120 @@
         mouseZoom: true,
       },
       scenes: {
-        scene1: {
-          title: 'Display 1 — Lab Information Panel',
-          panorama: 'images/display-1.jpeg',
-          hotSpots: [
-            {
-              pitch: -5,
-              yaw: 90,
-              type: 'scene',
-              text: 'Go to Display 2 — Cars & Racing',
-              sceneId: 'scene2',
-            },
-            {
-              pitch: 10,
-              yaw: -45,
-              type: 'info',
-              text: 'Additive/Subtractive Manufacturing, Fluid Flow, Robotics & Energy panels',
-            },
-          ],
-        },
-        scene2: {
-          title: 'Display 2 — Cars & Racing',
-          panorama: 'images/display-2.jpeg',
-          hotSpots: [
-            {
-              pitch: -3,
-              yaw: 180,
-              type: 'scene',
-              text: 'Back to Display 1 — Lab Info Panel',
-              sceneId: 'scene1',
-            },
-            {
-              pitch: 0,
-              yaw: 45,
-              type: 'scene',
-              text: 'Go to Display 3 — Mechanical Counter',
-              sceneId: 'scene3',
-            },
-            {
-              pitch: 5,
-              yaw: -30,
-              type: 'info',
-              text: '2025 Nittany Motorsports Formula 1 car — mounted with steel cables',
-            },
-          ],
-        },
-        scene3: {
-          title: 'Display 3 — Mechanical Counter',
-          panorama: 'images/display-3.jpeg',
-          hotSpots: [
-            {
-              pitch: -5,
-              yaw: 135,
-              type: 'scene',
-              text: 'Back to Display 2 — Cars & Racing',
-              sceneId: 'scene2',
-            },
-            {
-              pitch: 10,
-              yaw: -60,
-              type: 'info',
-              text: 'Hand-crank visitor counter — each digit represents a different technology era',
-            },
-          ],
-        },
-        scene4: {
-          title: 'Full Hallway View',
-          panorama: '',
-          hotSpots: [
-            {
-              pitch: -8,
-              yaw: -90,
-              type: 'scene',
-              text: 'Back to Outdoor Area',
-              sceneId: 'scene3',
-            },
-            {
-              pitch: 15,
-              yaw: 20,
-              type: 'info',
-              text: 'Development workstation',
-            },
-          ],
-        },
+        ...buildHallwayScenes(),
+        ...displayScenes,
       },
     };
 
-    /* ── Determine start scene from URL param ── */
+    /* ── Determine start scene from URL param (?scene=hallway-3) ── */
     const urlParams = new URLSearchParams(window.location.search);
-    const startScene = urlParams.get('scene') || sceneConfig.default.firstScene;
-    if (sceneConfig.scenes[startScene]) {
+    const startScene = urlParams.get('scene');
+    if (startScene && sceneConfig.scenes[startScene]) {
       sceneConfig.default.firstScene = startScene;
     }
 
-    /* ── Check if panorama images exist ── */
-    const hasPanoramas = Object.values(sceneConfig.scenes).some(s => s.panorama !== '');
+    /* ── Init Pannellum ── */
+    const viewer = pannellum.viewer('panorama', {
+      ...sceneConfig.default,
+      scenes: sceneConfig.scenes,
+    });
 
     const loadingScreen = document.getElementById('loading-screen');
-    const placeholder   = document.getElementById('placeholder');
-    const sceneNav      = document.getElementById('scene-nav');
+    const titleText = document.getElementById('scene-title-text');
+    const hallwayNav = document.getElementById('hallway-nav');
+    const displaysNav = document.getElementById('displays-nav');
+    const hallwayPrev = document.getElementById('hallway-prev');
+    const hallwayNext = document.getElementById('hallway-next');
+    const progressText = document.getElementById('hallway-progress-text');
+    const progressFill = document.getElementById('hallway-progress-fill');
 
-    if (!hasPanoramas) {
-      // Show placeholder instead of Pannellum
+    viewer.on('load', () => {
       loadingScreen.classList.add('hidden');
-      placeholder.style.display = 'flex';
-    } else {
-      /* ── Init Pannellum ── */
-      const viewer = pannellum.viewer('panorama', {
-        ...sceneConfig.default,
-        scenes: sceneConfig.scenes,
-      });
+      syncUI(viewer.getScene());
+    });
+    viewer.on('scenechange', (sceneId) => {
+      syncUI(sceneId);
+    });
 
-      viewer.on('load', () => {
-        loadingScreen.classList.add('hidden');
-        syncNavButtons(viewer.getScene());
+    /* ── Mode toggle ── */
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const mode = btn.dataset.mode;
+        // Switch to a sensible scene for the new mode
+        const current = viewer.getScene();
+        if (mode === 'displays' && !current.startsWith('display-')) {
+          viewer.loadScene('display-1');
+        } else if (mode === 'hallway' && !current.startsWith('hallway-')) {
+          viewer.loadScene('hallway-1');
+        } else {
+          syncUI(current);
+        }
       });
+    });
 
-      viewer.on('scenechange', (sceneId) => {
-        syncNavButtons(sceneId);
+    /* ── Hallway prev/next buttons ── */
+    hallwayPrev.addEventListener('click', () => {
+      const idx = getHallwayIndex(viewer.getScene());
+      if (idx > 1) viewer.loadScene(`hallway-${idx - 1}`);
+    });
+    hallwayNext.addEventListener('click', () => {
+      const idx = getHallwayIndex(viewer.getScene());
+      if (idx > 0 && idx < HALLWAY_COUNT) viewer.loadScene(`hallway-${idx + 1}`);
+    });
+
+    /* ── Displays quick-jump ── */
+    document.querySelectorAll('#displays-nav .scene-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        viewer.loadScene(btn.dataset.scene);
       });
+    });
 
-      /* ── Scene nav button logic ── */
-      document.querySelectorAll('.scene-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const scene = btn.dataset.scene;
-          viewer.loadScene(scene);
-        });
+    /* ── Keyboard: arrow keys walk the hallway ── */
+    document.addEventListener('keydown', (e) => {
+      // Don't hijack when user is zooming with keyboard
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      const current = viewer.getScene();
+      if (!current.startsWith('hallway-')) return;
+      const idx = getHallwayIndex(current);
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+        if (idx < HALLWAY_COUNT) { viewer.loadScene(`hallway-${idx + 1}`); e.preventDefault(); }
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        if (idx > 1) { viewer.loadScene(`hallway-${idx - 1}`); e.preventDefault(); }
+      }
+    });
+
+    /* ── Helpers ── */
+    function getHallwayIndex(sceneId) {
+      const m = /^hallway-(\d+)$/.exec(sceneId);
+      return m ? parseInt(m[1], 10) : 0;
+    }
+
+    function syncUI(sceneId) {
+      const scene = sceneConfig.scenes[sceneId];
+      if (!scene) return;
+
+      // Title
+      titleText.textContent = scene.title;
+
+      // Mode-specific UI
+      const isHallway = sceneId.startsWith('hallway-');
+      const mode = isHallway ? 'hallway' : 'displays';
+
+      document.querySelectorAll('.mode-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.mode === mode);
       });
+      hallwayNav.classList.toggle('hidden', !isHallway);
+      displaysNav.classList.toggle('hidden', isHallway);
 
-      function syncNavButtons(activeScene) {
-        document.querySelectorAll('.scene-btn').forEach(btn => {
-          btn.classList.toggle('active', btn.dataset.scene === activeScene);
+      if (isHallway) {
+        const idx = getHallwayIndex(sceneId);
+        progressText.textContent = `Stop ${idx} / ${HALLWAY_COUNT}`;
+        progressFill.style.width = `${(idx / HALLWAY_COUNT) * 100}%`;
+        hallwayPrev.disabled = idx <= 1;
+        hallwayNext.disabled = idx >= HALLWAY_COUNT;
+      } else {
+        document.querySelectorAll('#displays-nav .scene-btn').forEach(b => {
+          b.classList.toggle('active', b.dataset.scene === sceneId);
         });
       }
     }
