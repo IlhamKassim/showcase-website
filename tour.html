@@ -130,13 +130,11 @@
           panorama: 'virtual-walkthrough-pic/display-1.JPG',
           hotSpots: [
             {
-              // Display 1 orange panel sits at the far-left of the equirectangular
               pitch: 5, yaw: -150,
               type: 'info',
               text: 'Additive/Subtractive Manufacturing, Fluid Flow, Robotics & Energy panels',
             },
             {
-              // Hallway continues right (deeper into building) toward Display 2
               pitch: -10, yaw: 90,
               type: 'scene',
               text: 'Go to Display 2 — Cars & Racing',
@@ -150,21 +148,18 @@
           panorama: 'virtual-walkthrough-pic/display-2.JPG',
           hotSpots: [
             {
-              // Hallway back toward entrance / Display 1 — left side of pano
               pitch: -10, yaw: -100,
               type: 'scene',
               text: 'Back to Display 1 — Lab Info Panel',
               sceneId: 'scene1',
             },
             {
-              // Hallway continuing deeper toward Display 3 — right side of pano
               pitch: -10, yaw: 100,
               type: 'scene',
               text: 'Go to Display 3 — Mechanical Counter',
               sceneId: 'scene3',
             },
             {
-              // Display 2 case wraps both edges — almost directly behind default view
               pitch: 10, yaw: 175,
               type: 'info',
               text: '2025 Nittany Motorsports Formula 1 car — mounted with steel cables',
@@ -177,56 +172,56 @@
           panorama: 'virtual-walkthrough-pic/display-3.JPG',
           hotSpots: [
             {
-              // Hallway back toward Display 2 — left side of pano (blue seating area)
               pitch: -10, yaw: -100,
               type: 'scene',
               text: 'Back to Display 2 — Cars & Racing',
               sceneId: 'scene2',
             },
             {
-              // Orange wooden counter/display is right of center in the pano
               pitch: 5, yaw: 20,
               type: 'info',
               text: 'Hand-crank visitor counter — each digit represents a different technology era',
             },
             {
-              // Hallway continuing past Display 3 — right side of pano
               pitch: -10, yaw: 90,
               type: 'scene',
               text: 'Start Hallway Walkthrough',
               sceneId: 'hallway1',
+              targetYaw: -155,  // arrive at Stop 1 already facing into the building
             },
           ],
         },
 
         /* ── HALLWAY WALKTHROUGH ────────────────────────────── */
         /*
-         * Images: virtual-walkthrough-pic/hallway-1.JPG … hallway-12.JPG
-         * Yaw/pitch derived from visual analysis of each equirectangular:
-         *   yaw  = ((x_pixel / 11904) − 0.5) × 360
-         *   pitch = (0.5 − (y_pixel / 5952)) × 180
-         * hotSpotDebug: true is enabled — open the browser console and
-         * click anywhere in the panorama to log the exact yaw/pitch under
-         * your cursor for fine-tuning.
+         * Each scene has a `yaw` property so the initial view faces "forward"
+         * (deeper into the building, toward the atrium).
+         * Transition hotspots use `targetYaw` so you arrive in the next/previous
+         * scene already oriented in the direction of travel.
+         *
+         * hotSpotDebug: true is still enabled — click anywhere in the panorama
+         * and the exact yaw/pitch is logged to the browser console for fine-tuning.
          */
 
         hallway1: {
           title: 'Hallway — Stop 1 of 12',
           panorama: 'virtual-walkthrough-pic/hallway-1.JPG',
+          yaw: -155,  // face interior corridor (entrance doors are at yaw=0 behind you)
           hotSpots: [
             {
-              // Interior direction leads back toward Display 3 — far left of pano
+              // Back toward Display 3 — same interior direction, offset slightly
               pitch: -10, yaw: -130,
               type: 'scene',
               text: 'Back to Display 3 — Mechanical Counter',
               sceneId: 'scene3',
             },
             {
-              // Glass corridor transition doors sit dead-center — walk through them
-              pitch: -10, yaw: 0,
+              // FIX: was yaw=0 (entrance doors). Interior corridor is at far-left.
+              pitch: -10, yaw: -155,
               type: 'scene',
               text: 'Continue → Stop 2',
               sceneId: 'hallway2',
+              targetYaw: 140,  // arrive at Stop 2 facing the deep corridor (far-right)
             },
           ],
         },
@@ -234,20 +229,23 @@
         hallway2: {
           title: 'Hallway — Stop 2 of 12',
           panorama: 'virtual-walkthrough-pic/hallway-2.JPG',
+          yaw: 140,  // face deep corridor on arrival (forward direction)
           hotSpots: [
             {
-              // Exit/glass doors visible at yaw ≈ -85° (center-left)
+              // Exit/glass doors at center-left — back toward entrance
               pitch: -10, yaw: -85,
               type: 'scene',
               text: '← Back to Stop 1',
               sceneId: 'hallway1',
+              targetYaw: -155,  // arrive at Stop 1 facing the interior corridor
             },
             {
-              // Hallway continues to the right past the Display 1 panel
+              // Corridor continues far-right past Display 1 panel
               pitch: -10, yaw: 100,
               type: 'scene',
               text: 'Continue → Stop 3',
               sceneId: 'hallway3',
+              targetYaw: 90,  // arrive at Stop 3 facing the right corridor
             },
           ],
         },
@@ -255,20 +253,23 @@
         hallway3: {
           title: 'Hallway — Stop 3 of 12',
           panorama: 'virtual-walkthrough-pic/hallway-3.JPG',
+          yaw: 90,  // face right corridor (forward direction)
           hotSpots: [
             {
-              // "Dept of ME" panel is left-center; back direction is just past it
+              // "Dept of ME" panel is left-center; back direction past it
               pitch: -10, yaw: -90,
               type: 'scene',
               text: '← Back to Stop 2',
               sceneId: 'hallway2',
+              targetYaw: 140,  // arrive at Stop 2 facing forward
             },
             {
-              // Hallway continues to the right
+              // Corridor continues to the right
               pitch: -10, yaw: 90,
               type: 'scene',
               text: 'Continue → Stop 4',
               sceneId: 'hallway4',
+              targetYaw: 10,  // arrive at Stop 4 facing the center corridor
             },
           ],
         },
@@ -276,13 +277,15 @@
         hallway4: {
           title: 'Hallway — Stop 4 of 12',
           panorama: 'virtual-walkthrough-pic/hallway-4.JPG',
+          yaw: 10,  // face center corridor (forward direction)
           hotSpots: [
             {
-              // Exit doors visible far-left; back toward stop 3
-              pitch: -10, yaw: -120,
+              // FIX: was yaw=-120 (classroom door). Far-left corridor is the back direction.
+              pitch: -10, yaw: -160,
               type: 'scene',
               text: '← Back to Stop 3',
               sceneId: 'hallway3',
+              targetYaw: 90,  // arrive at Stop 3 facing forward
             },
             {
               // Corridor continues past the blue kiosk units to the right
@@ -290,6 +293,7 @@
               type: 'scene',
               text: 'Continue → Stop 5',
               sceneId: 'hallway5',
+              targetYaw: 120,  // arrive at Stop 5 facing toward Display 2
             },
           ],
         },
@@ -297,20 +301,23 @@
         hallway5: {
           title: 'Hallway — Stop 5 of 12',
           panorama: 'virtual-walkthrough-pic/hallway-5.JPG',
+          yaw: 120,  // face toward Display 2 case (forward direction)
           hotSpots: [
             {
-              // Green EXIT sign is at the far-left; back toward stop 4
+              // Green EXIT sign at far-left — back toward entrance
               pitch: -10, yaw: -130,
               type: 'scene',
               text: '← Back to Stop 4',
               sceneId: 'hallway4',
+              targetYaw: 10,  // arrive at Stop 4 facing the center corridor
             },
             {
-              // Display 2 case (orange frame, dark panels) is far-right; continue past it
+              // Corridor continues past Display 2 case (far-right)
               pitch: -10, yaw: 120,
               type: 'scene',
               text: 'Continue → Stop 6',
               sceneId: 'hallway6',
+              targetYaw: 100,  // arrive at Stop 6 facing past portrait gallery
             },
           ],
         },
@@ -318,13 +325,15 @@
         hallway6: {
           title: 'Hallway — Stop 6 of 12',
           panorama: 'virtual-walkthrough-pic/hallway-6.JPG',
+          yaw: 100,  // face corridor past portrait gallery (forward direction)
           hotSpots: [
             {
-              // Portrait gallery is center-right; corridor back is to the left
+              // Corridor back is to the left (came past Display 2)
               pitch: -10, yaw: -110,
               type: 'scene',
               text: '← Back to Stop 5',
               sceneId: 'hallway5',
+              targetYaw: 120,  // arrive at Stop 5 facing forward
             },
             {
               // Hallway continues to the right past the gallery
@@ -332,6 +341,7 @@
               type: 'scene',
               text: 'Continue → Stop 7',
               sceneId: 'hallway7',
+              targetYaw: 130,  // arrive at Stop 7 facing corridor past seating
             },
           ],
         },
@@ -339,20 +349,23 @@
         hallway7: {
           title: 'Hallway — Stop 7 of 12',
           panorama: 'virtual-walkthrough-pic/hallway-7.JPG',
+          yaw: 130,  // face corridor opening past blue seating (forward direction)
           hotSpots: [
             {
-              // Blue seating on left; corridor back is further left
+              // Mailbox corridor at far-left — back toward entrance
               pitch: -10, yaw: -110,
               type: 'scene',
               text: '← Back to Stop 6',
               sceneId: 'hallway6',
+              targetYaw: 100,  // arrive at Stop 6 facing forward
             },
             {
-              // Blue seating on right; corridor continues past it
-              pitch: -10, yaw: 90,
+              // FIX: was yaw=90 (seating benches). Corridor opening is far-right.
+              pitch: -10, yaw: 130,
               type: 'scene',
               text: 'Continue → Stop 8',
               sceneId: 'hallway8',
+              targetYaw: 130,  // arrive at Stop 8 facing corridor past blinds
             },
           ],
         },
@@ -360,20 +373,23 @@
         hallway8: {
           title: 'Hallway — Stop 8 of 12',
           panorama: 'virtual-walkthrough-pic/hallway-8.JPG',
+          yaw: 130,  // face corridor past blue blinds (forward direction)
           hotSpots: [
             {
-              // Corridor goes back to the left
+              // Corridor recedes to the left
               pitch: -10, yaw: -100,
               type: 'scene',
               text: '← Back to Stop 7',
               sceneId: 'hallway7',
+              targetYaw: 130,  // arrive at Stop 7 facing forward
             },
             {
-              // Blue vertical blinds are far-right; continue past them
-              pitch: -10, yaw: 90,
+              // Blue vertical blinds at far-right; continue past them
+              pitch: -10, yaw: 130,
               type: 'scene',
               text: 'Continue → Stop 9',
               sceneId: 'hallway9',
+              targetYaw: 100,  // arrive at Stop 9 facing corridor past QR TV
             },
           ],
         },
@@ -381,20 +397,23 @@
         hallway9: {
           title: 'Hallway — Stop 9 of 12',
           panorama: 'virtual-walkthrough-pic/hallway-9.JPG',
+          yaw: 100,  // face corridor past QR-code TV (forward direction)
           hotSpots: [
             {
-              // Blue blinds are far-left (came from that direction)
+              // Blue blinds at far-left (came from that direction)
               pitch: -10, yaw: -130,
               type: 'scene',
               text: '← Back to Stop 8',
               sceneId: 'hallway8',
+              targetYaw: 130,  // arrive at Stop 8 facing forward
             },
             {
-              // QR-code TV is center-right; continue down the corridor
+              // Continue down the corridor past the QR-code TV
               pitch: -10, yaw: 100,
               type: 'scene',
               text: 'Continue → Stop 10',
               sceneId: 'hallway10',
+              targetYaw: 120,  // arrive at Stop 10 facing corridor past large doors
             },
           ],
         },
@@ -402,20 +421,23 @@
         hallway10: {
           title: 'Hallway — Stop 10 of 12',
           panorama: 'virtual-walkthrough-pic/hallway-10.JPG',
+          yaw: 120,  // face corridor past large doors and display panel (forward direction)
           hotSpots: [
             {
-              // Long corridor recedes to the left; that's where we came from
+              // Long corridor recedes to the left — that's where we came from
               pitch: -10, yaw: -110,
               type: 'scene',
               text: '← Back to Stop 9',
               sceneId: 'hallway9',
+              targetYaw: 100,  // arrive at Stop 9 facing forward
             },
             {
-              // Past the blue seating on the right — corridor continues
+              // Corridor continues past the display panel on the right
               pitch: -10, yaw: 130,
               type: 'scene',
               text: 'Continue → Stop 11',
               sceneId: 'hallway11',
+              targetYaw: 10,  // arrive at Stop 11 facing toward the atrium
             },
           ],
         },
@@ -423,20 +445,23 @@
         hallway11: {
           title: 'Hallway — Stop 11 of 12',
           panorama: 'virtual-walkthrough-pic/hallway-11.JPG',
+          yaw: 10,  // face toward the atrium opening (forward direction)
           hotSpots: [
             {
-              // Corridor leading back to stop 10 is to the right
-              pitch: -10, yaw: 100,
+              // FIX: was yaw=100 (completely wrong side). Far-left corridor is the back direction.
+              pitch: -10, yaw: -150,
               type: 'scene',
               text: '← Back to Stop 10',
               sceneId: 'hallway10',
+              targetYaw: 120,  // arrive at Stop 10 facing forward
             },
             {
-              // Stairwell/atrium opening is straight ahead (center of pano)
+              // Atrium/stairwell opening ahead (center of panorama)
               pitch: -10, yaw: 10,
               type: 'scene',
               text: 'Continue → Stop 12',
               sceneId: 'hallway12',
+              targetYaw: 0,  // arrive at Stop 12 facing the atrium
             },
           ],
         },
@@ -444,6 +469,7 @@
         hallway12: {
           title: 'Hallway — Stop 12 of 12',
           panorama: 'virtual-walkthrough-pic/hallway-12.JPG',
+          yaw: 0,  // face the atrium (the final destination)
           hotSpots: [
             {
               // Corridor back to stop 11 recedes to the left
@@ -451,6 +477,7 @@
               type: 'scene',
               text: '← Back to Stop 11',
               sceneId: 'hallway11',
+              targetYaw: 10,  // arrive at Stop 11 facing forward (toward atrium)
             },
           ],
         },
