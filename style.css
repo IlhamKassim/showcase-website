@@ -1032,3 +1032,14 @@ p { line-height: 1.7; }
   .budget-hero-right { width: 100%; }
   .timeline-wrap { padding-left: 44px; }
 }
+
+/* ── Footer ── */
+.site-footer {
+  text-align: center;
+  padding: 20px 24px;
+  background: var(--sidebar-bg);
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
