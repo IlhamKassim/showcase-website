@@ -1037,9 +1037,9 @@ p { line-height: 1.7; }
 .site-footer {
   text-align: center;
   padding: 20px 24px;
-  background: var(--sidebar-bg);
+  background: var(--psu-navy);
   border-top: 1px solid var(--border);
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.55);
   font-size: 0.78rem;
   line-height: 1.6;
 }
