@@ -246,9 +246,11 @@
     const HALLWAY_COUNT = 12;
 
     const PANORAMAS = {
-      scene1:    'virtual-walkthrough-pic/display-1.JPG',
-      scene2:    'virtual-walkthrough-pic/display-2.JPG',
-      scene3:    'virtual-walkthrough-pic/display-3.JPG',
+      scene1:    'display-1-picture/display-1-1.JPG',
+      scene1b:   'display-1-picture/display-1-2.JPG',
+      scene2:    'display-2-picture/display-2.JPG',
+      scene3:    'display-3-picture/display-3-1.JPG',
+      scene3b:   'display-3-picture/display-3-2.JPG',
       hallway1:  'virtual-walkthrough-pic/hallway-1.JPG',
       hallway2:  'virtual-walkthrough-pic/hallway-2.JPG',
       hallway3:  'virtual-walkthrough-pic/hallway-3.JPG',
@@ -289,13 +291,39 @@
 
         scene1: {
           title: 'Display 1 — Lab Information Panel',
-          panorama: 'virtual-walkthrough-pic/display-1.JPG',
+          panorama: 'display-1-picture/display-1-1.JPG',
           yaw: 0,
           hotSpots: [
             {
               pitch: 5, yaw: -150,
               type: 'info',
               text: 'Additive/Subtractive Manufacturing, Fluid Flow, Robotics & Energy panels',
+            },
+            {
+              pitch: -10, yaw: 20,
+              type: 'scene',
+              text: 'Display 1 — View 2 →',
+              sceneId: 'scene1b',
+            },
+            {
+              pitch: -10, yaw: 90,
+              type: 'scene',
+              text: 'Go to Display 2 — Cars & Racing',
+              sceneId: 'scene2',
+            },
+          ],
+        },
+
+        scene1b: {
+          title: 'Display 1 — Lab Information Panel (View 2)',
+          panorama: 'display-1-picture/display-1-2.JPG',
+          yaw: 0,
+          hotSpots: [
+            {
+              pitch: -10, yaw: -90,
+              type: 'scene',
+              text: '← View 1',
+              sceneId: 'scene1',
             },
             {
               pitch: -10, yaw: 90,
@@ -308,7 +336,7 @@
 
         scene2: {
           title: 'Display 2 — Cars & Racing',
-          panorama: 'virtual-walkthrough-pic/display-2.JPG',
+          panorama: 'display-2-picture/display-2.JPG',
           yaw: 0,
           hotSpots: [
             {
@@ -333,7 +361,7 @@
 
         scene3: {
           title: 'Display 3 — Mechanical Counter',
-          panorama: 'virtual-walkthrough-pic/display-3.JPG',
+          panorama: 'display-3-picture/display-3-1.JPG',
           yaw: 0,
           hotSpots: [
             {
@@ -348,11 +376,38 @@
               text: 'Hand-crank visitor counter — each digit represents a different technology era',
             },
             {
+              pitch: -10, yaw: 55,
+              type: 'scene',
+              text: 'Display 3 — View 2 →',
+              sceneId: 'scene3b',
+            },
+            {
               pitch: -10, yaw: 90,
               type: 'scene',
               text: 'Start Hallway Walkthrough',
               sceneId: 'hallway1',
               targetYaw: -155,  // arrive at Stop 1 already facing into the building
+            },
+          ],
+        },
+
+        scene3b: {
+          title: 'Display 3 — Mechanical Counter (View 2)',
+          panorama: 'display-3-picture/display-3-2.JPG',
+          yaw: 0,
+          hotSpots: [
+            {
+              pitch: -10, yaw: -100,
+              type: 'scene',
+              text: '← View 1',
+              sceneId: 'scene3',
+            },
+            {
+              pitch: -10, yaw: 90,
+              type: 'scene',
+              text: 'Start Hallway Walkthrough',
+              sceneId: 'hallway1',
+              targetYaw: -155,
             },
           ],
         },
@@ -776,12 +831,15 @@
 
     /* ── Nav bar highlight sync ── */
     function syncNavButtons(activeScene) {
+      // Map sub-scenes to their parent nav button
+      const sceneAlias = { scene1b: 'scene1', scene3b: 'scene3' };
+      const effectiveScene = sceneAlias[activeScene] ?? activeScene;
       document.querySelectorAll('.scene-btn').forEach(btn => {
         const btnScene = btn.dataset.scene;
-        const isHallwayBtn   = btnScene === 'hallway1';
+        const isHallwayBtn    = btnScene === 'hallway1';
         const isActiveHallway = activeScene.startsWith('hallway');
         btn.classList.toggle('active',
-          isHallwayBtn ? isActiveHallway : btnScene === activeScene
+          isHallwayBtn ? isActiveHallway : btnScene === effectiveScene
         );
       });
     }
