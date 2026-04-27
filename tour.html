@@ -243,7 +243,7 @@
 
   <script>
     /* ── Constants ── */
-    const HALLWAY_COUNT = 12;
+    const HALLWAY_COUNT = 7;
 
     const PANORAMAS = {
       scene1:    'display-1-picture/display-1-1.JPG',
@@ -251,18 +251,13 @@
       scene2:    'display-2-picture/display-2.JPG',
       scene3:    'display-3-picture/display-3-1.JPG',
       scene3b:   'display-3-picture/display-3-2.JPG',
-      hallway1:  'virtual-walkthrough-pic/hallway-1.JPG',
-      hallway2:  'virtual-walkthrough-pic/hallway-2.JPG',
-      hallway3:  'virtual-walkthrough-pic/hallway-3.JPG',
-      hallway4:  'virtual-walkthrough-pic/hallway-4.JPG',
-      hallway5:  'virtual-walkthrough-pic/hallway-5.JPG',
-      hallway6:  'virtual-walkthrough-pic/hallway-6.JPG',
-      hallway7:  'virtual-walkthrough-pic/hallway-7.JPG',
-      hallway8:  'virtual-walkthrough-pic/hallway-8.JPG',
-      hallway9:  'virtual-walkthrough-pic/hallway-9.JPG',
-      hallway10: 'virtual-walkthrough-pic/hallway-10.JPG',
-      hallway11: 'virtual-walkthrough-pic/hallway-11.JPG',
-      hallway12: 'virtual-walkthrough-pic/hallway-12.JPG',
+      hallway1: 'virtual-walkthrough-pic/1.JPG',
+      hallway2: 'virtual-walkthrough-pic/2.JPG',
+      hallway3: 'virtual-walkthrough-pic/3.JPG',
+      hallway4: 'virtual-walkthrough-pic/4.JPG',
+      hallway5: 'virtual-walkthrough-pic/5.JPG',
+      hallway6: 'virtual-walkthrough-pic/6.JPG',
+      hallway7: 'virtual-walkthrough-pic/7.JPG',
     };
 
     const HALLWAY_ORDER = Array.from({ length: HALLWAY_COUNT }, (_, i) => `hallway${i + 1}`);
@@ -386,7 +381,7 @@
               type: 'scene',
               text: 'Start Hallway Walkthrough',
               sceneId: 'hallway1',
-              targetYaw: -155,  // arrive at Stop 1 already facing into the building
+              targetYaw: 0,
             },
           ],
         },
@@ -421,257 +416,147 @@
          */
 
         hallway1: {
-          title: 'Hallway — Stop 1 of 12',
-          panorama: 'virtual-walkthrough-pic/hallway-1.JPG',
-          yaw: -155,  // face interior corridor (entrance doors are at yaw≈0 behind you)
+          title: 'Hallway — Stop 1 of 7',
+          panorama: 'virtual-walkthrough-pic/1.JPG',
+          yaw: 0,
           hotSpots: [
             {
-              pitch: -10, yaw: -130,
+              pitch: -10, yaw: 180,
               type: 'scene',
               text: 'Back to Display 3 — Mechanical Counter',
               sceneId: 'scene3',
             },
             {
-              pitch: -10, yaw: -155,
+              pitch: -10, yaw: 0,
               type: 'scene',
               text: 'Continue → Stop 2',
               sceneId: 'hallway2',
-              targetYaw: 140,  // arrive at Stop 2 facing the deep corridor
+              targetYaw: 0,
             },
           ],
         },
 
         hallway2: {
-          title: 'Hallway — Stop 2 of 12',
-          panorama: 'virtual-walkthrough-pic/hallway-2.JPG',
-          yaw: 140,  // face deep corridor on arrival (forward direction)
+          title: 'Hallway — Stop 2 of 7',
+          panorama: 'virtual-walkthrough-pic/2.JPG',
+          yaw: 0,
           hotSpots: [
             {
-              pitch: -10, yaw: -85,
+              pitch: -10, yaw: 180,
               type: 'scene',
               text: '← Back to Stop 1',
               sceneId: 'hallway1',
-              targetYaw: -155,  // arrive at Stop 1 facing the interior corridor
+              targetYaw: 0,
             },
             {
-              pitch: -10, yaw: 100,
+              pitch: -10, yaw: 0,
               type: 'scene',
               text: 'Continue → Stop 3',
               sceneId: 'hallway3',
-              targetYaw: 165,  // arrive at Stop 3 facing forward
+              targetYaw: 0,
             },
           ],
         },
 
         hallway3: {
-          title: 'Hallway — Stop 3 of 12',
-          panorama: 'virtual-walkthrough-pic/hallway-3.JPG',
-          yaw: 165,  // calibrated forward direction
+          title: 'Hallway — Stop 3 of 7',
+          panorama: 'virtual-walkthrough-pic/3.JPG',
+          yaw: 0,
           hotSpots: [
             {
-              pitch: -10, yaw: -15,
+              pitch: -10, yaw: 180,
               type: 'scene',
               text: '← Back to Stop 2',
               sceneId: 'hallway2',
-              targetYaw: 140,  // arrive at Stop 2 facing forward
+              targetYaw: 0,
             },
             {
-              pitch: -10, yaw: 165,
+              pitch: -10, yaw: 0,
               type: 'scene',
               text: 'Continue → Stop 4',
               sceneId: 'hallway4',
-              targetYaw: -90,  // arrive at Stop 4 facing forward
+              targetYaw: 0,
             },
           ],
         },
 
         hallway4: {
-          title: 'Hallway — Stop 4 of 12',
-          panorama: 'virtual-walkthrough-pic/hallway-4.JPG',
-          yaw: -90,  // calibrated forward direction
+          title: 'Hallway — Stop 4 of 7',
+          panorama: 'virtual-walkthrough-pic/4.JPG',
+          yaw: 0,
           hotSpots: [
             {
-              pitch: -10, yaw: 90,
+              pitch: -10, yaw: 180,
               type: 'scene',
               text: '← Back to Stop 3',
               sceneId: 'hallway3',
-              targetYaw: 165,  // arrive at Stop 3 facing forward
+              targetYaw: 0,
             },
             {
-              pitch: -10, yaw: -90,
+              pitch: -10, yaw: 0,
               type: 'scene',
               text: 'Continue → Stop 5',
               sceneId: 'hallway5',
-              targetYaw: 62,  // arrive at Stop 5 facing forward
+              targetYaw: 0,
             },
           ],
         },
 
         hallway5: {
-          title: 'Hallway — Stop 5 of 12',
-          panorama: 'virtual-walkthrough-pic/hallway-5.JPG',
-          yaw: 62,  // calibrated forward direction
+          title: 'Hallway — Stop 5 of 7',
+          panorama: 'virtual-walkthrough-pic/5.JPG',
+          yaw: 0,
           hotSpots: [
             {
-              pitch: -10, yaw: -118,
+              pitch: -10, yaw: 180,
               type: 'scene',
               text: '← Back to Stop 4',
               sceneId: 'hallway4',
-              targetYaw: -90,  // arrive at Stop 4 facing forward
+              targetYaw: 0,
             },
             {
-              pitch: -10, yaw: 62,
+              pitch: -10, yaw: 0,
               type: 'scene',
               text: 'Continue → Stop 6',
               sceneId: 'hallway6',
-              targetYaw: 168,  // arrive at Stop 6 facing forward
+              targetYaw: 0,
             },
           ],
         },
 
         hallway6: {
-          title: 'Hallway — Stop 6 of 12',
-          panorama: 'virtual-walkthrough-pic/hallway-6.JPG',
-          yaw: 168,  // calibrated forward direction
+          title: 'Hallway — Stop 6 of 7',
+          panorama: 'virtual-walkthrough-pic/6.JPG',
+          yaw: 0,
           hotSpots: [
             {
-              pitch: -10, yaw: -12,
+              pitch: -10, yaw: 180,
               type: 'scene',
               text: '← Back to Stop 5',
               sceneId: 'hallway5',
-              targetYaw: 62,  // arrive at Stop 5 facing forward
+              targetYaw: 0,
             },
             {
-              pitch: -10, yaw: 168,
+              pitch: -10, yaw: 0,
               type: 'scene',
               text: 'Continue → Stop 7',
               sceneId: 'hallway7',
-              targetYaw: -158,  // arrive at Stop 7 facing forward
+              targetYaw: 0,
             },
           ],
         },
 
         hallway7: {
-          title: 'Hallway — Stop 7 of 12',
-          panorama: 'virtual-walkthrough-pic/hallway-7.JPG',
-          yaw: -158,  // calibrated forward direction
+          title: 'Hallway — Stop 7 of 7',
+          panorama: 'virtual-walkthrough-pic/7.JPG',
+          yaw: 0,
           hotSpots: [
             {
-              pitch: -10, yaw: 22,
+              pitch: -10, yaw: 180,
               type: 'scene',
               text: '← Back to Stop 6',
               sceneId: 'hallway6',
-              targetYaw: 168,  // arrive at Stop 6 facing forward
-            },
-            {
-              pitch: -10, yaw: -158,
-              type: 'scene',
-              text: 'Continue → Stop 8',
-              sceneId: 'hallway8',
-              targetYaw: -154,  // arrive at Stop 8 facing forward
-            },
-          ],
-        },
-
-        hallway8: {
-          title: 'Hallway — Stop 8 of 12',
-          panorama: 'virtual-walkthrough-pic/hallway-8.JPG',
-          yaw: -154,  // calibrated forward direction
-          hotSpots: [
-            {
-              pitch: -10, yaw: 26,
-              type: 'scene',
-              text: '← Back to Stop 7',
-              sceneId: 'hallway7',
-              targetYaw: -158,  // arrive at Stop 7 facing forward
-            },
-            {
-              pitch: -10, yaw: -154,
-              type: 'scene',
-              text: 'Continue → Stop 9',
-              sceneId: 'hallway9',
-              targetYaw: 36,  // arrive at Stop 9 facing forward
-            },
-          ],
-        },
-
-        hallway9: {
-          title: 'Hallway — Stop 9 of 12',
-          panorama: 'virtual-walkthrough-pic/hallway-9.JPG',
-          yaw: 36,  // calibrated forward direction
-          hotSpots: [
-            {
-              pitch: -10, yaw: -144,
-              type: 'scene',
-              text: '← Back to Stop 8',
-              sceneId: 'hallway8',
-              targetYaw: -154,  // arrive at Stop 8 facing forward
-            },
-            {
-              pitch: -10, yaw: 36,
-              type: 'scene',
-              text: 'Continue → Stop 10',
-              sceneId: 'hallway10',
-              targetYaw: 27,  // arrive at Stop 10 facing forward
-            },
-          ],
-        },
-
-        hallway10: {
-          title: 'Hallway — Stop 10 of 12',
-          panorama: 'virtual-walkthrough-pic/hallway-10.JPG',
-          yaw: 27,  // calibrated forward direction
-          hotSpots: [
-            {
-              pitch: -10, yaw: -153,
-              type: 'scene',
-              text: '← Back to Stop 9',
-              sceneId: 'hallway9',
-              targetYaw: 36,  // arrive at Stop 9 facing forward
-            },
-            {
-              pitch: -10, yaw: 27,
-              type: 'scene',
-              text: 'Continue → Stop 11',
-              sceneId: 'hallway11',
-              targetYaw: 14,  // arrive at Stop 11 facing forward
-            },
-          ],
-        },
-
-        hallway11: {
-          title: 'Hallway — Stop 11 of 12',
-          panorama: 'virtual-walkthrough-pic/hallway-11.JPG',
-          yaw: 14,  // calibrated forward direction
-          hotSpots: [
-            {
-              pitch: -10, yaw: -166,
-              type: 'scene',
-              text: '← Back to Stop 10',
-              sceneId: 'hallway10',
-              targetYaw: 27,  // arrive at Stop 10 facing forward
-            },
-            {
-              pitch: -10, yaw: 14,
-              type: 'scene',
-              text: 'Continue → Stop 12',
-              sceneId: 'hallway12',
-              targetYaw: -46,  // arrive at Stop 12 facing the atrium
-            },
-          ],
-        },
-
-        hallway12: {
-          title: 'Hallway — Stop 12 of 12',
-          panorama: 'virtual-walkthrough-pic/hallway-12.JPG',
-          yaw: -46,  // face atrium/exit — final destination
-          hotSpots: [
-            {
-              pitch: -10, yaw: 19,
-              type: 'scene',
-              text: '← Back to Stop 11',
-              sceneId: 'hallway11',
-              targetYaw: 14,  // arrive at Stop 11 facing forward
+              targetYaw: 0,
             },
           ],
         },
