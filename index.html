@@ -5,720 +5,588 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dynamic Displays for ME — Kinetic Engineering Collective</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════
-     SIDEBAR
-══════════════════════════════════════════ -->
-<aside class="sidebar" id="sidebar">
+<!-- ═════════ TOP STRIPE ═════════ -->
+<div class="psu-stripe"></div>
 
-  <!-- Brand -->
-  <div class="sidebar-brand">
-    <div class="psu-logo">
-      <img src="penn-state-logo.png" alt="Penn State" />
+<!-- ═════════ HEADER ═════════ -->
+<header class="psu-header">
+  <div class="psu-header-inner">
+    <div class="psu-mark" onclick="navigate('dashboard')">
+      <img class="psu-mark-shield" src="penn-state-logo.png" alt="Penn State" />
+      <div class="psu-mark-text">
+        <span class="psu-mark-uni">Penn State</span>
+        <span class="psu-mark-dept">Mechanical Engineering</span>
+      </div>
     </div>
-    <div class="brand-text">
-      <span class="brand-name">Penn State</span>
-      <span class="brand-college">College of Engineering</span>
-      <span class="brand-dept">MECHANICAL<br/>ENGINEERING</span>
-    </div>
-  </div>
-
-  <div class="sidebar-divider"></div>
-
-  <!-- Nav -->
-  <nav class="sidebar-nav">
-    <button class="nav-item active" data-page="dashboard">
-      <i data-lucide="layout-dashboard"></i>
-      <span>Dashboard</span>
+    <button class="psu-nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <i data-lucide="menu"></i>
     </button>
-    <button class="nav-item" data-page="about">
-      <i data-lucide="info"></i>
-      <span>About</span>
-    </button>
-    <button class="nav-item" data-page="design">
-      <i data-lucide="pen-tool"></i>
-      <span>Design Process</span>
-    </button>
-    <button class="nav-item" data-page="team">
-      <i data-lucide="users"></i>
-      <span>Team</span>
-    </button>
-    <button class="nav-item" data-page="budget">
-      <i data-lucide="bar-chart-2"></i>
-      <span>Our Spending</span>
-    </button>
-    <button class="nav-item" data-page="facts">
-      <i data-lucide="lightbulb"></i>
-      <span>Did You Know?</span>
-    </button>
-  </nav>
-
-  <div class="sidebar-spacer"></div>
-
-  <!-- Tour CTA -->
-  <div class="sidebar-tour-btn">
-    <button class="tour-launch-btn" onclick="openTourModal()">
-      <i data-lucide="globe"></i>
-      <span>Launch Tour</span>
-    </button>
-  </div>
-
-</aside>
-
-<!-- ══════════════════════════════════════════
-     MAIN AREA
-══════════════════════════════════════════ -->
-<main class="main" id="main">
-
-  <!-- Topbar -->
-  <header class="topbar">
-    <div class="topbar-left">
-      <button class="hamburger" id="hamburger">
-        <i data-lucide="menu"></i>
+    <nav class="psu-nav" id="psuNav">
+      <button data-page="dashboard" class="active">Dashboard</button>
+      <button data-page="about">About</button>
+      <button data-page="design">Design Process</button>
+      <button data-page="team">Team</button>
+      <button data-page="budget">Spending</button>
+      <button data-page="facts">Did You Know?</button>
+      <button class="psu-nav-cta" onclick="openTourModal()">
+        <i data-lucide="globe"></i>Launch Tour
       </button>
-      <div class="topbar-project">
-        <div class="topbar-psu-mark">
-          <img src="penn-state-logo.png" alt="Penn State" class="topbar-logo-img" />
-        </div>
-        <div class="topbar-me-mark">
-          <img src="mechanical-engineering-logo.png" alt="Mechanical Engineering" class="topbar-me-img" />
-        </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: DASHBOARD
+═══════════════════════════════════════════ -->
+<div class="page active" id="page-dashboard">
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-grid">
         <div>
-          <h1 class="topbar-title">Dynamic Displays for Mechanical Engineering</h1>
-          <p class="topbar-desc">
-            Three interactive displays installed in the Reber Building hallway — designed and built by the
-            Kinetic Engineering Collective to inspire students, faculty, and visitors at Penn State ME.
+          <div class="hero-eyebrow">ME 440W · Capstone Spring 2026</div>
+          <h1 class="hero-title">
+            Dynamic Displays for <span class="hero-title-accent">Mechanical Engineering</span>
+          </h1>
+          <p class="hero-lede">
+            Three interactive installations along the first floor of the Reber Building — designed,
+            built, and installed by the Kinetic Engineering Collective to showcase the breadth of
+            Penn State Mechanical Engineering to students, faculty, and visitors.
           </p>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><div class="stat-num">3</div><div class="stat-key">Displays Installed</div></div>
+          <div class="stat"><div class="stat-num">7</div><div class="stat-key">Team Members</div></div>
+          <div class="stat"><div class="stat-num">$1,250</div><div class="stat-key">Total Budget</div></div>
+          <div class="stat"><div class="stat-num">Spring '26</div><div class="stat-key">Capstone Year</div></div>
         </div>
       </div>
     </div>
-    <div class="topbar-right">
-      <div class="topbar-team-badge">
-        <i data-lucide="zap"></i>
-        Kinetic Engineering Collective
+  </section>
+
+  <div class="section" style="padding-bottom: 0;">
+    <div class="feature">
+      <div class="feature-img"></div>
+      <div class="feature-fade"></div>
+      <div class="feature-content">
+        <div class="feature-eyebrow">Featured · 360° Virtual Tour</div>
+        <h2 class="feature-title">Walk through the Reber Building hallway.</h2>
+        <p class="feature-desc">
+          Seven panoramic stops captured on location. Pan, zoom, and step right up to all
+          three displays from anywhere — no campus visit required.
+        </p>
+        <button class="btn-primary" onclick="openTourModal()">
+          Launch the Tour <i data-lucide="arrow-right"></i>
+        </button>
       </div>
     </div>
-  </header>
+  </div>
 
-  <!-- Page container -->
-  <div class="content">
-
-    <!-- ── PAGE: DASHBOARD ── -->
-    <section id="page-dashboard" class="page active">
-      <div class="page-header">
-        <h2>Overview</h2>
-        <span class="page-subtitle">Kinetic Engineering Collective — Capstone 2025</span>
-      </div>
-
-      <div class="dash-grid">
-
-        <!-- CARD: Let's Walk -->
-        <div class="dash-card card-walk" onclick="openTourModal()">
-          <div class="card-img-bg" style="background: url('lets-walk.png') center/cover no-repeat, linear-gradient(145deg,#0d1b3e,#1e407c);">
-          </div>
-          <div class="card-overlay-walk">
-            <div class="walk-icon-ring">
-              <i data-lucide="globe"></i>
-            </div>
-            <h2>Let's Walk!</h2>
-            <p>Take a 360° walk through the Reber hallway.<br/>7 stops and a close look at all three displays.</p>
-            <div class="walk-cta">
-              <span>Launch Tour</span>
-              <i data-lucide="arrow-right"></i>
-            </div>
-          </div>
-        </div>
-
-        <!-- CARD: About the Project -->
-        <div class="dash-card card-about" onclick="navigate('about')">
-          <div class="card-img-bg" style="background: url('about-the-project.png') center/cover no-repeat, linear-gradient(135deg,#1a3a60,#2d6a9f);">
-          </div>
-          <div class="card-label-overlay">
-            <span class="card-label-tag">
-              <i data-lucide="building-2"></i> About the Project
-            </span>
-            <p class="card-label-sub">Department of Mechanical Engineering</p>
-          </div>
-        </div>
-
-        <!-- CARD: Design Process -->
-        <div class="dash-card card-design" onclick="navigate('design')">
-          <div class="card-img-bg" style="background: url('design-process.png') center/cover no-repeat, linear-gradient(135deg,#101828,#2d3a55);">
-          </div>
-          <div class="card-label-overlay">
-            <span class="card-label-tag">
-              <i data-lucide="pen-tool"></i> Design Process
-            </span>
-            <p class="card-label-sub">From concept to completion</p>
-          </div>
-        </div>
-
-        <!-- CARD: Meet the Team -->
-        <div class="dash-card card-team" onclick="navigate('team')">
-          <div class="team-preview-content">
-            <div class="team-preview-left">
-              <h3>Meet the Team!</h3>
-              <p>The Kinetic Engineering Collective</p>
-            </div>
-            <div class="team-avatar-stack">
-              <img src="team-picture/michelle-kelly.png" alt="Michelle Kelly" class="ta-img" />
-              <img src="team-picture/joshua-bruce.png" alt="Joshua Bruce" class="ta-img" />
-              <img src="team-picture/ilham-kassim.png" alt="Ilham Kassim" class="ta-img" />
-              <div class="ta ta-plus">+4</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- CARD: Our Spending -->
-        <div class="dash-card card-spending" onclick="navigate('budget')">
-          <div class="spending-header">
-            <span class="spending-title">Our Spending</span>
-            <span class="spending-sub">for this project</span>
-          </div>
-          <div class="spending-bar-wrap">
-            <div class="spending-bar-track">
-              <div class="spending-bar-fill" style="width: 0%" data-width="83%"></div>
-            </div>
-          </div>
-          <div class="spending-details">
-            <span class="spending-pct" id="spendPct">0%</span>
-            <span class="spending-amount">$1,040 of $1,250.00 budget</span>
-          </div>
-        </div>
-
-        <!-- CARD: Did You Know? -->
-        <div class="dash-card card-facts" onclick="navigate('facts')">
-          <div class="facts-card-inner">
-            <div class="facts-icon">
-              <i data-lucide="lightbulb"></i>
-            </div>
-            <h3>Did you know this?</h3>
-            <p class="facts-teaser" id="factTeaser">
-              Display 2 features a real 2025 Nittany Motorsports Formula SAE car mounted inside the Reber Building hallway.
-            </p>
-            <span class="facts-more">Explore all facts →</span>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ── PAGE: ABOUT ── -->
-    <section id="page-about" class="page">
-      <div class="page-header">
-        <button class="back-btn" onclick="navigate('dashboard')"><i data-lucide="arrow-left"></i> Back</button>
-        <h2>About the Project</h2>
-        <span class="page-subtitle">Dynamic Displays for the ME Department · Spring 2026</span>
-      </div>
-
-      <div class="about-hero glass-section">
-        <div class="about-hero-img" style="background: url('about-the-project.png') center/cover no-repeat, linear-gradient(135deg,#1e407c,#2a6aad);">
-          <div class="about-hero-label">Reber Building · Penn State · First Floor Hallway</div>
-        </div>
-        <div class="about-hero-text">
-          <span class="section-eyebrow">Project Overview</span>
-          <h3>Three Interactive Displays for Penn State Mechanical Engineering</h3>
-          <p>
-            The Kinetic Engineering Collective designed and built three dynamic, interactive
-            displays installed along the main hallway of the ME Department on the first floor
-            of Reber Building — replacing existing faux vegetation that hadn't been updated since 2016.
-          </p>
-          <p>
-            The displays are visited daily by students, faculty, staff, alumni, and prospective
-            students and their families. They aim to inspire visitors to appreciate the collaborative
-            spirit and cutting-edge opportunities within Mechanical Engineering at Penn State.
-          </p>
+  <section class="section">
+    <div class="section-heading">
+      <h2 class="section-title">Explore the Project</h2>
+      <span class="section-subtitle">Three pillars · About, Process, and the Team</span>
+    </div>
+    <div class="tile-grid">
+      <div class="tile" onclick="navigate('about')">
+        <div class="tile-img t-about"><span class="tile-tag">The Project</span></div>
+        <div class="tile-body">
+          <div class="tile-cat">Overview</div>
+          <h3 class="tile-title">About the Exhibit</h3>
+          <p class="tile-desc">Three displays, one mission: replace the faux vegetation that had stood since 2016 with something that represents what ME at Penn State is actually doing today.</p>
+          <span class="tile-link">Read more <i data-lucide="chevron-right"></i></span>
         </div>
       </div>
-
-      <div class="about-cards-row">
-        <div class="info-card glass-section">
-          <div class="info-icon-wrap navy">
-            <i data-lucide="layout-panel-left"></i>
-          </div>
-          <h4>Display 1 — Lab Information Panel</h4>
-          <p>
-            Four large panels showcasing key ME topics: Additive/Subtractive Manufacturing,
-            Fluid Flow &amp; Piping, Robotics, and Energy Generation/Storage — with an
-            interactive hydraulic robotic arm and a live solar power output monitor.
-          </p>
-        </div>
-        <div class="info-card glass-section">
-          <div class="info-icon-wrap blue">
-            <i data-lucide="gauge"></i>
-          </div>
-          <h4>Display 2 — Cars &amp; Racing</h4>
-          <p>
-            Features a 2025 Formula SAE car from Penn State's Nittany Motorsports team
-            mounted diagonally in the display space, alongside the Shell Eco-Marathon Team,
-            celebrating real-world student-driven engineering.
-          </p>
-        </div>
-        <div class="info-card glass-section">
-          <div class="info-icon-wrap teal">
-            <i data-lucide="rotate-cw"></i>
-          </div>
-          <h4>Display 3 — Mechanical Counter</h4>
-          <p>
-            An interactive hand-crank visitor counter where each digit represents a progressively
-            more modern technology — from analog gears to wireless signals — visible through
-            a clear Plexiglass panel. Inspired by San Francisco's Exploratorium.
-          </p>
+      <div class="tile" onclick="navigate('design')">
+        <div class="tile-img t-design"><span class="tile-tag">Methodology</span></div>
+        <div class="tile-body">
+          <div class="tile-cat">Process</div>
+          <h3 class="tile-title">The Design Process</h3>
+          <p class="tile-desc">From early sketches and Pugh concept scoring to alpha prototypes, beta testing, and final installation in April 2026.</p>
+          <span class="tile-link">View timeline <i data-lucide="chevron-right"></i></span>
         </div>
       </div>
-
-      <div class="glass-section about-specs">
-        <h4>Project Highlights</h4>
-        <div class="specs-grid">
-          <div class="spec-item">
-            <span class="spec-val">Spring '26</span>
-            <span class="spec-key">Capstone Year</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-val">7</span>
-            <span class="spec-key">Team Members</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-val">$1,250</span>
-            <span class="spec-key">Total Budget</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-val">3</span>
-            <span class="spec-key">Displays Installed</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-val">2025 FSAE</span>
-            <span class="spec-key">Car Featured</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-val">Reber 1F</span>
-            <span class="spec-key">Location</span>
-          </div>
+      <div class="tile" onclick="navigate('team')">
+        <div class="tile-img">
+          <div class="tile-img-fallback"><i data-lucide="users"></i></div>
+          <span class="tile-tag">The Collective</span>
+        </div>
+        <div class="tile-body">
+          <div class="tile-cat">People</div>
+          <h3 class="tile-title">Meet the Team</h3>
+          <p class="tile-desc">Seven Penn State Mechanical Engineering seniors, each contributing a distinct discipline — from project management to electronics to documentation.</p>
+          <span class="tile-link">See bios <i data-lucide="chevron-right"></i></span>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ── PAGE: DESIGN PROCESS ── -->
-    <section id="page-design" class="page">
-      <div class="page-header">
-        <button class="back-btn" onclick="navigate('dashboard')"><i data-lucide="arrow-left"></i> Back</button>
-        <h2>Design Process</h2>
-        <span class="page-subtitle">From brainstorming to the final product</span>
+  <section class="data-strip">
+    <div class="data-strip-inner">
+      <div class="data-strip-head">
+        <h3>Project Budget &amp; Spending</h3>
+        <p>Allocated by the Department of Mechanical Engineering · Sponsor Dr. Mary Frecker</p>
       </div>
-
-      <div class="timeline-wrap">
-
-        <div class="timeline-item">
-          <div class="timeline-dot step-1">
-            <i data-lucide="clipboard-list"></i>
-          </div>
-          <div class="timeline-card glass-section">
-            <div class="timeline-step-badge">Phase 01</div>
-            <h4>Initial Planning</h4>
-            <p>
-              The team established roles, built a Gantt chart for milestone tracking, and set up
-              weekly commitments (10–12 hours/member/week). Project Manager Joshua Bruce created
-              meeting agendas and aligned the team with sponsor Dr. Mary Frecker and faculty
-              coach Dr. Tikyna Dandridge. Undergraduate Lab Manager Drew Mosser was established
-              as a weekly point of contact for materials and logistics.
-            </p>
-          </div>
+      <div class="spend-block">
+        <div class="spend-row">
+          <span class="spend-num">$1,040<small>of $1,250</small></span>
+          <span class="spend-pct">83% UTILIZED</span>
         </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot step-2">
-            <i data-lucide="lightbulb"></i>
-          </div>
-          <div class="timeline-card glass-section">
-            <div class="timeline-step-badge">Phase 02</div>
-            <h4>Concept Development</h4>
-            <p>
-              The team generated five concept areas — Power Generation, Robotics, Manufacturing,
-              Automotive Display, and Fluid Flow — and evaluated them using Pugh Concept Scoring
-              against weighted customer needs. Final selections: Display 1 (Lab Info Panel with
-              4 ME topics), Display 2 (automotive display and racing), and Display 3 (mechanical visitor counter).
-              Visits to The Franklin Institute and Mercedes-AMG motorsport displays provided
-              additional inspiration.
-            </p>
-          </div>
+        <div class="spend-bar"><div class="spend-bar-fill" data-fill="83%"></div></div>
+        <div class="spend-foot">
+          <span>$210 remaining · 6 categories tracked</span>
+          <button class="link-btn" onclick="navigate('budget')">Full breakdown <i data-lucide="chevron-right"></i></button>
         </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot step-3">
-            <i data-lucide="pen-tool"></i>
-          </div>
-          <div class="timeline-card glass-section">
-            <div class="timeline-step-badge">Phase 03 · Alpha</div>
-            <h4>Alpha Prototyping</h4>
-            <p>
-              Fully scaled CAD models were created for all three displays. 3D-printed concept
-              panels were produced for Display 1 to test layout and proportions. Initial prototypes
-              were developed for the Cars/Racing display, the Mechanical Counter mechanism,
-              and each of the four sub-topics on the Lab Info Panel. A Bill of Materials and
-              proposed mounting system were submitted to the sponsor.
-            </p>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot step-4">
-            <i data-lucide="layers"></i>
-          </div>
-          <div class="timeline-card glass-section">
-            <div class="timeline-step-badge">Phase 04 · Beta</div>
-            <h4>Beta Prototyping &amp; Materials</h4>
-            <p>
-              All panels were drafted on final materials. Vinyl graphics were printed through
-              the Learning Factory at no cost. Existing wood paneling was retained for Display 1
-              to save budget. Electronics were sourced from DigiKey, hardware from McMaster-Carr,
-              and wall panels from Forms+Surfaces — the same company that installed the original
-              wooden wall system in 2024. Structural analysis and safety review confirmed
-              ASME compliance for all mounting systems.
-            </p>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot step-5">
-            <i data-lucide="hammer"></i>
-          </div>
-          <div class="timeline-card glass-section">
-            <div class="timeline-step-badge">Phase 05</div>
-            <h4>Construction &amp; Installation</h4>
-            <p>
-              Full construction of all three displays, coordinated with Reber Building management.
-              The 2025 Nittany Motorsports Formula SAE car was mounted diagonally with steel cables
-              and custom hardware. The mechanical counter was assembled with Schmitt trigger
-              circuitry (based on a 1942 patent) and housed behind 3/8" Plexiglass for safety.
-              Display 1's live solar monitor was connected to Penn State's Nittany 1 solar farm.
-              Target completion: April 22, 2026.
-            </p>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot step-6">
-            <i data-lucide="camera"></i>
-          </div>
-          <div class="timeline-card glass-section">
-            <div class="timeline-step-badge">Phase 06</div>
-            <h4>Virtual Tour &amp; 360° Documentation</h4>
-            <p>
-              After installation, the hallway was captured using equirectangular 360° photography.
-              The panoramas were processed and loaded into the Pannellum-based virtual tour,
-              allowing remote visitors to walk through the completed displays interactively.
-              Hotspots guide viewers to details about each display and its engineering content.
-            </p>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot step-7">
-            <i data-lucide="flag"></i>
-          </div>
-          <div class="timeline-card glass-section">
-            <div class="timeline-step-badge">Phase 07</div>
-            <h4>Capstone Showcase &amp; Final Delivery</h4>
-            <p>
-              The completed displays and virtual tour were presented at Penn State's Capstone
-              Showcase — first in-class on April 28, then at the Bryce Jordan Center on April 30, 2026.
-              Final deliverables include a comprehensive Final Report and a Guide Manual covering
-              maintenance, operation, and future updates for all three displays.
-            </p>
-          </div>
-        </div>
-
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ── PAGE: TEAM ── -->
-    <section id="page-team" class="page">
-      <div class="page-header">
-        <button class="back-btn" onclick="navigate('dashboard')"><i data-lucide="arrow-left"></i> Back</button>
-        <h2>Meet the Team</h2>
-        <span class="page-subtitle">Kinetic Engineering Collective</span>
+  <section class="section">
+    <div class="section-heading">
+      <h2 class="section-title">More from the Project</h2>
+      <span class="section-subtitle">The team, and project trivia</span>
+    </div>
+    <div class="row-2">
+      <div class="panel" onclick="navigate('team')">
+        <div class="panel-cat">The Kinetic Engineering Collective</div>
+        <h3 class="panel-title">Seven students. One installation.</h3>
+        <div class="roster">
+          <img src="team-picture/michelle-kelly.png" alt="Michelle" />
+          <img src="team-picture/joshua-bruce.png" alt="Joshua" />
+          <img src="team-picture/ilham-kassim.png" alt="Ilham" />
+          <img src="team-picture/adriana-amizal.png" alt="Adriana" />
+          <div class="more">+3</div>
+        </div>
+        <p class="panel-desc">Project management, electronics, structural design, and documentation — every discipline represented across the team's seven members.</p>
+        <span class="panel-link">View team bios <i data-lucide="chevron-right"></i></span>
       </div>
+      <div class="panel" onclick="navigate('facts')">
+        <div class="panel-cat">Did You Know?</div>
+        <h3 class="panel-title">A Real 2025 Formula SAE Car.</h3>
+        <p class="fact-pull">Display 2 features an actual 2025 race car from Penn State's Nittany Motorsports team — mounted diagonally with steel cables inside the hallway display case.</p>
+        <p class="panel-desc">Six more facts cover the 80-year-old Schmitt trigger circuitry, the live solar feed from Nittany 1, and the project's connection to San Francisco's Exploratorium.</p>
+        <span class="panel-link">Explore all facts <i data-lucide="chevron-right"></i></span>
+      </div>
+    </div>
+  </section>
 
-      <div class="team-grid">
+</div><!-- /page-dashboard -->
 
-        <div class="member-card glass-section">
-          <img src="team-picture/michelle-kelly.png" alt="Michelle Kelly" class="member-avatar" />
-          <h4 class="member-name">Michelle Kelly</h4>
-          <span class="member-role">Primary Contact · Note Taker</span>
+<!-- ═══════════════════════════════════════════
+     PAGE: ABOUT
+═══════════════════════════════════════════ -->
+<div class="page" id="page-about">
+  <section class="subhero">
+    <div class="subhero-inner">
+      <div class="breadcrumb">
+        <button onclick="navigate('dashboard')">Dashboard</button>
+        <i data-lucide="chevron-right"></i>
+        <span>About</span>
+      </div>
+      <h1 class="subhero-title">About the Project</h1>
+      <p class="subhero-sub">Dynamic Displays for the ME Department · Capstone Spring 2026</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="about-hero">
+      <div class="about-hero-img"></div>
+      <div class="about-hero-text">
+        <div class="eyebrow">Project Overview</div>
+        <h3>Three Interactive Displays for Penn State Mechanical Engineering</h3>
+        <p>The Kinetic Engineering Collective designed and built three dynamic, interactive displays installed along the main hallway of the ME Department on the first floor of Reber Building — replacing existing faux vegetation that hadn't been updated since 2016.</p>
+        <p>The displays are visited daily by students, faculty, staff, alumni, and prospective students and their families. They aim to inspire visitors to appreciate the collaborative spirit and cutting-edge opportunities within Mechanical Engineering at Penn State.</p>
+      </div>
+    </div>
+
+    <div class="section-heading">
+      <h2 class="section-title">The Three Displays</h2>
+      <span class="section-subtitle">Each highlighting a different facet of ME at Penn State</span>
+    </div>
+
+    <div class="tile-grid">
+      <div class="info-card">
+        <div class="info-icon"><i data-lucide="layout-panel-left"></i></div>
+        <h4>Display 1 — Lab Information Panel</h4>
+        <p>Four large panels showcasing key ME topics: Additive/Subtractive Manufacturing, Fluid Flow &amp; Piping, Robotics, and Energy Generation/Storage — with an interactive hydraulic robotic arm and a live solar power output monitor.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i data-lucide="gauge"></i></div>
+        <h4>Display 2 — Cars &amp; Racing</h4>
+        <p>Features a 2025 Formula SAE car from Penn State's Nittany Motorsports team mounted diagonally in the display space, alongside the Shell Eco-Marathon Team, celebrating real-world student-driven engineering.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i data-lucide="rotate-cw"></i></div>
+        <h4>Display 3 — Mechanical Counter</h4>
+        <p>An interactive hand-crank visitor counter where each digit represents a progressively more modern technology — from analog gears to wireless signals — visible through a clear Plexiglass panel. Inspired by San Francisco's Exploratorium.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 48px;">
+      <div class="section-heading">
+        <h2 class="section-title">Project Highlights</h2>
+        <span class="section-subtitle">By the numbers</span>
+      </div>
+      <div class="specs-grid">
+        <div class="spec-item"><span class="spec-val">Spring '26</span><span class="spec-key">Capstone Year</span></div>
+        <div class="spec-item"><span class="spec-val">7</span><span class="spec-key">Team Members</span></div>
+        <div class="spec-item"><span class="spec-val">$1,250</span><span class="spec-key">Total Budget</span></div>
+        <div class="spec-item"><span class="spec-val">3</span><span class="spec-key">Displays Installed</span></div>
+        <div class="spec-item"><span class="spec-val">2025 FSAE</span><span class="spec-key">Car Featured</span></div>
+        <div class="spec-item"><span class="spec-val">Reber 1F</span><span class="spec-key">Location</span></div>
+      </div>
+    </div>
+  </section>
+</div><!-- /page-about -->
+
+<!-- ═══════════════════════════════════════════
+     PAGE: DESIGN PROCESS
+═══════════════════════════════════════════ -->
+<div class="page" id="page-design">
+  <section class="subhero">
+    <div class="subhero-inner">
+      <div class="breadcrumb">
+        <button onclick="navigate('dashboard')">Dashboard</button>
+        <i data-lucide="chevron-right"></i>
+        <span>Design Process</span>
+      </div>
+      <h1 class="subhero-title">Design Process</h1>
+      <p class="subhero-sub">From brainstorming to the final product</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">01</div>
+        <div class="tl-card">
+          <span class="tl-phase">Phase 01</span>
+          <h4>Initial Planning</h4>
+          <p>The team established roles, built a Gantt chart for milestone tracking, and set up weekly commitments (10–12 hours/member/week). Project Manager Joshua Bruce created meeting agendas and aligned the team with sponsor Dr. Mary Frecker and faculty coach Dr. Tikyna Dandridge. Undergraduate Lab Manager Drew Mosser was established as a weekly point of contact for materials and logistics.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">02</div>
+        <div class="tl-card">
+          <span class="tl-phase">Phase 02</span>
+          <h4>Concept Development</h4>
+          <p>The team generated five concept areas — Power Generation, Robotics, Manufacturing, Automotive Display, and Fluid Flow — and evaluated them using Pugh Concept Scoring against weighted customer needs. Final selections: Display 1 (Lab Info Panel with 4 ME topics), Display 2 (automotive display and racing), and Display 3 (mechanical visitor counter). Visits to The Franklin Institute and Mercedes-AMG motorsport displays provided additional inspiration.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">03</div>
+        <div class="tl-card">
+          <span class="tl-phase">Phase 03 · Alpha</span>
+          <h4>Alpha Prototyping</h4>
+          <p>Fully scaled CAD models were created for all three displays. 3D-printed concept panels were produced for Display 1 to test layout and proportions. Initial prototypes were developed for the Cars/Racing display, the Mechanical Counter mechanism, and each of the four sub-topics on the Lab Info Panel. A Bill of Materials and proposed mounting system were submitted to the sponsor.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">04</div>
+        <div class="tl-card">
+          <span class="tl-phase">Phase 04 · Beta</span>
+          <h4>Beta Prototyping &amp; Materials</h4>
+          <p>All panels were drafted on final materials. Vinyl graphics were printed through the Learning Factory at no cost. Existing wood paneling was retained for Display 1 to save budget. Electronics were sourced from DigiKey, hardware from McMaster-Carr, and wall panels from Forms+Surfaces — the same company that installed the original wooden wall system in 2024. Structural analysis and safety review confirmed ASME compliance for all mounting systems.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">05</div>
+        <div class="tl-card">
+          <span class="tl-phase">Phase 05</span>
+          <h4>Construction &amp; Installation</h4>
+          <p>Full construction of all three displays, coordinated with Reber Building management. The 2025 Nittany Motorsports Formula SAE car was mounted diagonally with steel cables and custom hardware. The mechanical counter was assembled with Schmitt trigger circuitry (based on a 1942 patent) and housed behind 3/8" Plexiglass for safety. Display 1's live solar monitor was connected to Penn State's Nittany 1 solar farm. Target completion: April 22, 2026.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">06</div>
+        <div class="tl-card">
+          <span class="tl-phase">Phase 06</span>
+          <h4>Virtual Tour &amp; 360° Documentation</h4>
+          <p>After installation, the hallway was captured using equirectangular 360° photography. The panoramas were processed and loaded into the Pannellum-based virtual tour, allowing remote visitors to walk through the completed displays interactively. Hotspots guide viewers to details about each display and its engineering content.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">07</div>
+        <div class="tl-card">
+          <span class="tl-phase">Phase 07</span>
+          <h4>Capstone Showcase &amp; Final Delivery</h4>
+          <p>The completed displays and virtual tour were presented at Penn State's Capstone Showcase — first in-class on April 28, then at the Bryce Jordan Center on April 30, 2026. Final deliverables include a comprehensive Final Report and a Guide Manual covering maintenance, operation, and future updates for all three displays.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- /page-design -->
+
+<!-- ═══════════════════════════════════════════
+     PAGE: TEAM
+═══════════════════════════════════════════ -->
+<div class="page" id="page-team">
+  <section class="subhero">
+    <div class="subhero-inner">
+      <div class="breadcrumb">
+        <button onclick="navigate('dashboard')">Dashboard</button>
+        <i data-lucide="chevron-right"></i>
+        <span>Team</span>
+      </div>
+      <h1 class="subhero-title">Meet the Team</h1>
+      <p class="subhero-sub">Kinetic Engineering Collective · Seven Penn State ME Seniors</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="team-grid">
+      <div class="member">
+        <div class="member-photo" style="background-image:url('team-picture/michelle-kelly.png');"></div>
+        <div class="member-body">
+          <div class="member-role">Primary Contact · Note Taker</div>
+          <h3 class="member-name">Michelle Kelly</h3>
           <p class="member-bio">Serves as the team's primary liaison with project sponsors and stakeholders, documenting action items across all meetings.</p>
           <div class="member-links">
-            <a href="mailto:mjk7245@psu.edu" class="member-link email"><i data-lucide="mail"></i> Email</a>
-            <a href="https://www.linkedin.com/in/michellekelly27/" class="member-link linkedin" target="_blank"><i data-lucide="linkedin"></i> LinkedIn</a>
+            <a href="mailto:mjk7245@psu.edu" class="member-link"><i data-lucide="mail"></i>Email</a>
+            <a href="https://www.linkedin.com/in/michellekelly27/" target="_blank" class="member-link"><i data-lucide="linkedin"></i>LinkedIn</a>
           </div>
         </div>
-
-        <div class="member-card glass-section">
-          <img src="team-picture/joshua-bruce.png" alt="Joshua Bruce" class="member-avatar" />
-          <h4 class="member-name">Joshua Bruce</h4>
-          <span class="member-role">Project Manager</span>
+      </div>
+      <div class="member">
+        <div class="member-photo" style="background-image:url('team-picture/joshua-bruce.png');"></div>
+        <div class="member-body">
+          <div class="member-role">Project Manager</div>
+          <h3 class="member-name">Joshua Bruce</h3>
           <p class="member-bio">Oversees the project timeline, creates meeting agendas, and ensures the team stays on track across all phases of development.</p>
           <div class="member-links">
-            <a href="mailto:jjb7396@psu.edu" class="member-link email"><i data-lucide="mail"></i> Email</a>
+            <a href="mailto:jjb7396@psu.edu" class="member-link"><i data-lucide="mail"></i>Email</a>
           </div>
         </div>
-
-        <div class="member-card glass-section">
-          <img src="team-picture/edward-warren.png" alt="Edward Warren" class="member-avatar" />
-          <h4 class="member-name">Edward Warren</h4>
-          <span class="member-role">Note Taker</span>
+      </div>
+      <div class="member">
+        <div class="member-photo" style="background-image:url('team-picture/edward-warren.png');"></div>
+        <div class="member-body">
+          <div class="member-role">Note Taker</div>
+          <h3 class="member-name">Edward Warren</h3>
           <p class="member-bio">Documents team discussions and decisions, ensuring a clear record of progress and action items across the project lifecycle.</p>
           <div class="member-links">
-            <a href="mailto:ekw5420@psu.edu" class="member-link email"><i data-lucide="mail"></i> Email</a>
+            <a href="mailto:ekw5420@psu.edu" class="member-link"><i data-lucide="mail"></i>Email</a>
           </div>
         </div>
-
-        <div class="member-card glass-section">
-          <img src="team-picture/ilham-kassim.png" alt="Ilham Kassim" class="member-avatar" />
-          <h4 class="member-name">Ilham Kassim</h4>
-          <span class="member-role">Budget Keeper</span>
+      </div>
+      <div class="member">
+        <div class="member-photo" style="background-image:url('team-picture/ilham-kassim.png');"></div>
+        <div class="member-body">
+          <div class="member-role">Budget Keeper</div>
+          <h3 class="member-name">Ilham Kassim</h3>
           <p class="member-bio">Manages the project's $1,250 budget, tracks all expenditures, and ensures spending stays aligned with the plan across all three displays.</p>
           <div class="member-links">
-            <a href="mailto:mbk6011@psu.edu" class="member-link email"><i data-lucide="mail"></i> Email</a>
-            <a href="https://www.linkedin.com/in/ilhamkassim/" class="member-link linkedin" target="_blank"><i data-lucide="linkedin"></i> LinkedIn</a>
+            <a href="mailto:mbk6011@psu.edu" class="member-link"><i data-lucide="mail"></i>Email</a>
+            <a href="https://www.linkedin.com/in/ilhamkassim/" target="_blank" class="member-link"><i data-lucide="linkedin"></i>LinkedIn</a>
           </div>
         </div>
-
-        <div class="member-card glass-section">
-          <img src="team-picture/adriana-amizal.png" alt="Adriana Amizal" class="member-avatar" />
-          <h4 class="member-name">Adriana Amizal</h4>
-          <span class="member-role">Journal Keeper</span>
+      </div>
+      <div class="member">
+        <div class="member-photo" style="background-image:url('team-picture/adriana-amizal.png');"></div>
+        <div class="member-body">
+          <div class="member-role">Journal Keeper</div>
+          <h3 class="member-name">Adriana Amizal</h3>
           <p class="member-bio">Records detailed meeting minutes and project journal entries. Brings SolidWorks expertise and technical writing skills to the design documentation.</p>
           <div class="member-links">
-            <a href="mailto:axa6488@psu.edu" class="member-link email"><i data-lucide="mail"></i> Email</a>
-            <a href="https://www.linkedin.com/in/adrianaamizal04/" class="member-link linkedin" target="_blank"><i data-lucide="linkedin"></i> LinkedIn</a>
+            <a href="mailto:axa6488@psu.edu" class="member-link"><i data-lucide="mail"></i>Email</a>
+            <a href="https://www.linkedin.com/in/adrianaamizal04/" target="_blank" class="member-link"><i data-lucide="linkedin"></i>LinkedIn</a>
           </div>
         </div>
-
-        <div class="member-card glass-section">
-          <img src="team-picture/siddhardh-tekumalla.png" alt="Siddhardh Tekumalla" class="member-avatar" />
-          <h4 class="member-name">Siddhardh Tekumalla</h4>
-          <span class="member-role">Scheduler</span>
+      </div>
+      <div class="member">
+        <div class="member-photo" style="background-image:url('team-picture/siddhardh-tekumalla.png');"></div>
+        <div class="member-body">
+          <div class="member-role">Scheduler</div>
+          <h3 class="member-name">Siddhardh Tekumalla</h3>
           <p class="member-bio">Coordinates all team and sponsor meetings, manages communications with Dr. Frecker, Dr. Dandridge, and Drew Mosser throughout the semester.</p>
           <div class="member-links">
-            <a href="mailto:szt5667@psu.edu" class="member-link email"><i data-lucide="mail"></i> Email</a>
+            <a href="mailto:szt5667@psu.edu" class="member-link"><i data-lucide="mail"></i>Email</a>
           </div>
         </div>
-
-        <div class="member-card glass-section">
-          <img src="team-picture/rahul-deshpande.png" alt="Rahul Deshpande" class="member-avatar" />
-          <h4 class="member-name">Rahul Deshpande</h4>
-          <span class="member-role">Journal Keeper</span>
+      </div>
+      <div class="member">
+        <div class="member-photo" style="background-image:url('team-picture/rahul-deshpande.png');"></div>
+        <div class="member-body">
+          <div class="member-role">Journal Keeper</div>
+          <h3 class="member-name">Rahul Deshpande</h3>
           <p class="member-bio">Co-records meeting minutes and project journal documentation, supporting the team's record-keeping and technical reporting requirements.</p>
           <div class="member-links">
-            <a href="mailto:rbd5438@psu.edu" class="member-link email"><i data-lucide="mail"></i> Email</a>
-            <a href="https://www.linkedin.com/in/rahulmadhavdeshpande/" class="member-link linkedin" target="_blank"><i data-lucide="linkedin"></i> LinkedIn</a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ── PAGE: BUDGET ── -->
-    <section id="page-budget" class="page">
-      <div class="page-header">
-        <button class="back-btn" onclick="navigate('dashboard')"><i data-lucide="arrow-left"></i> Back</button>
-        <h2>Our Spending</h2>
-        <span class="page-subtitle">Budget tracking for the project</span>
-      </div>
-
-      <div class="budget-hero glass-section">
-        <div class="budget-hero-left">
-          <span class="budget-label">Total Allocated Budget</span>
-          <div class="budget-big-num">$1,250<span>.00</span></div>
-          <span class="budget-of">Sponsor: Dept. of Mechanical Engineering · Dr. Mary Frecker</span>
-          <div class="budget-hero-bar-wrap">
-            <div class="budget-hero-bar-track">
-              <div class="budget-hero-bar-fill" data-width="83%"></div>
-            </div>
-            <div class="budget-hero-pct">$1,039.57 actual cost · 83% of budget</div>
-          </div>
-        </div>
-        <div class="budget-hero-right">
-          <div class="budget-stat">
-            <span class="bs-val">$1,250</span>
-            <span class="bs-key">Total Budget</span>
-          </div>
-          <div class="budget-stat">
-            <span class="bs-val">$1,040</span>
-            <span class="bs-key">Total Cost</span>
-          </div>
-          <div class="budget-stat">
-            <span class="bs-val">$210</span>
-            <span class="bs-key">Budget Remaining</span>
-          </div>
-          <div class="budget-stat">
-            <span class="bs-val">83%</span>
-            <span class="bs-key">Utilisation</span>
+            <a href="mailto:rbd5438@psu.edu" class="member-link"><i data-lucide="mail"></i>Email</a>
+            <a href="https://www.linkedin.com/in/rahulmadhavdeshpande/" target="_blank" class="member-link"><i data-lucide="linkedin"></i>LinkedIn</a>
           </div>
         </div>
       </div>
+    </div>
+  </section>
+</div><!-- /page-team -->
 
-      <!-- Spending Breakdown -->
-      <div class="glass-section">
-        <h4 class="section-label">Budget Allocation by Category</h4>
-        <div class="breakdown-list">
-          <div class="breakdown-item">
-            <span class="bi-label"><i data-lucide="cpu"></i> Electronics &amp; Motors</span>
-            <div class="bi-bar-wrap">
-              <div class="bi-bar" style="width:0%" data-width="36%"></div>
-            </div>
-            <span class="bi-amount">$450.00</span>
-          </div>
-          <div class="breakdown-item">
-            <span class="bi-label"><i data-lucide="settings"></i> Mechanical Components</span>
-            <div class="bi-bar-wrap">
-              <div class="bi-bar" style="width:0%" data-width="24%"></div>
-            </div>
-            <span class="bi-amount">$300.00</span>
-          </div>
-          <div class="breakdown-item">
-            <span class="bi-label"><i data-lucide="box"></i> Enclosure &amp; Display Materials</span>
-            <div class="bi-bar-wrap">
-              <div class="bi-bar" style="width:0%" data-width="20%"></div>
-            </div>
-            <span class="bi-amount">$250.00</span>
-          </div>
-          <div class="breakdown-item">
-            <span class="bi-label"><i data-lucide="flask-conical"></i> Prototyping &amp; Testing</span>
-            <div class="bi-bar-wrap">
-              <div class="bi-bar" style="width:0%" data-width="8%"></div>
-            </div>
-            <span class="bi-amount">$100.00</span>
-          </div>
-          <div class="breakdown-item">
-            <span class="bi-label"><i data-lucide="package"></i> Miscellaneous &amp; Contingency</span>
-            <div class="bi-bar-wrap">
-              <div class="bi-bar" style="width:0%" data-width="8%"></div>
-            </div>
-            <span class="bi-amount">$100.00</span>
-          </div>
-          <div class="breakdown-item">
-            <span class="bi-label"><i data-lucide="presentation"></i> Final Presentation Materials</span>
-            <div class="bi-bar-wrap">
-              <div class="bi-bar" style="width:0%" data-width="4%"></div>
-            </div>
-            <span class="bi-amount">$50.00</span>
-          </div>
-        </div>
-        <p style="font-size:0.78rem;color:var(--text-3);margin-top:14px;">
-          * Vinyl graphics printed at no cost via the Penn State Learning Factory.
-          Additional materials offered by sponsor Drew Mosser from ME Department budget.
-        </p>
+<!-- ═══════════════════════════════════════════
+     PAGE: BUDGET
+═══════════════════════════════════════════ -->
+<div class="page" id="page-budget">
+  <section class="subhero">
+    <div class="subhero-inner">
+      <div class="breadcrumb">
+        <button onclick="navigate('dashboard')">Dashboard</button>
+        <i data-lucide="chevron-right"></i>
+        <span>Spending</span>
       </div>
+      <h1 class="subhero-title">Our Spending</h1>
+      <p class="subhero-sub">Budget tracking for the project</p>
+    </div>
+  </section>
 
-    </section>
-
-    <!-- ── PAGE: FUN FACTS ── -->
-    <section id="page-facts" class="page">
-      <div class="page-header">
-        <button class="back-btn" onclick="navigate('dashboard')"><i data-lucide="arrow-left"></i> Back</button>
-        <h2>Did You Know?</h2>
-        <span class="page-subtitle">Fun facts about the project & its impact</span>
+  <section class="section">
+    <div class="budget-hero">
+      <div class="budget-main">
+        <div class="budget-label">Total Allocated Budget</div>
+        <div class="budget-big">$1,250<small>.00</small></div>
+        <p class="budget-sponsor">Sponsor: Dept. of Mechanical Engineering · Dr. Mary Frecker</p>
+        <div class="budget-bar"><div class="budget-bar-fill" data-fill="83%"></div></div>
+        <div class="budget-bar-text">$1,039.57 actual cost · 83% of budget</div>
       </div>
+      <div class="budget-stats">
+        <div class="bs-cell"><div class="bs-val">$1,250</div><div class="bs-key">Total Budget</div></div>
+        <div class="bs-cell"><div class="bs-val">$1,040</div><div class="bs-key">Total Cost</div></div>
+        <div class="bs-cell"><div class="bs-val">$210</div><div class="bs-key">Budget Remaining</div></div>
+        <div class="bs-cell"><div class="bs-val">83%</div><div class="bs-key">Utilization</div></div>
+      </div>
+    </div>
 
-      <div class="facts-intro glass-section">
-        <div class="facts-intro-icon"><i data-lucide="lightbulb"></i></div>
-        <div>
-          <h3>Why This Project Matters</h3>
-          <p>
-            The Reber Building's first-floor hallway is visited daily by hundreds of students,
-            faculty, staff, alumni, and prospective students. These displays replace outdated
-            faux vegetation (unchanged since 2016) with something that actually represents
-            the excitement and innovation of Mechanical Engineering at Penn State.
-          </p>
+    <div class="breakdown">
+      <h4>Budget Allocation by Category</h4>
+      <div class="bd-item">
+        <span class="bd-label"><i data-lucide="cpu"></i>Electronics &amp; Motors</span>
+        <div class="bd-bar-track"><div class="bd-bar-fill" data-fill="36%"></div></div>
+        <span class="bd-amount">$450.00</span>
+      </div>
+      <div class="bd-item">
+        <span class="bd-label"><i data-lucide="settings"></i>Mechanical Components</span>
+        <div class="bd-bar-track"><div class="bd-bar-fill" data-fill="24%"></div></div>
+        <span class="bd-amount">$300.00</span>
+      </div>
+      <div class="bd-item">
+        <span class="bd-label"><i data-lucide="box"></i>Enclosure &amp; Display Materials</span>
+        <div class="bd-bar-track"><div class="bd-bar-fill" data-fill="20%"></div></div>
+        <span class="bd-amount">$250.00</span>
+      </div>
+      <div class="bd-item">
+        <span class="bd-label"><i data-lucide="flask-conical"></i>Prototyping &amp; Testing</span>
+        <div class="bd-bar-track"><div class="bd-bar-fill" data-fill="8%"></div></div>
+        <span class="bd-amount">$100.00</span>
+      </div>
+      <div class="bd-item">
+        <span class="bd-label"><i data-lucide="package"></i>Miscellaneous &amp; Contingency</span>
+        <div class="bd-bar-track"><div class="bd-bar-fill" data-fill="8%"></div></div>
+        <span class="bd-amount">$100.00</span>
+      </div>
+      <div class="bd-item">
+        <span class="bd-label"><i data-lucide="presentation"></i>Final Presentation Materials</span>
+        <div class="bd-bar-track"><div class="bd-bar-fill" data-fill="4%"></div></div>
+        <span class="bd-amount">$50.00</span>
+      </div>
+      <p class="breakdown-note">* Vinyl graphics printed at no cost via the Penn State Learning Factory. Additional materials offered by sponsor Drew Mosser from ME Department budget.</p>
+    </div>
+  </section>
+</div><!-- /page-budget -->
+
+<!-- ═══════════════════════════════════════════
+     PAGE: FACTS
+═══════════════════════════════════════════ -->
+<div class="page" id="page-facts">
+  <section class="subhero">
+    <div class="subhero-inner">
+      <div class="breadcrumb">
+        <button onclick="navigate('dashboard')">Dashboard</button>
+        <i data-lucide="chevron-right"></i>
+        <span>Did You Know?</span>
+      </div>
+      <h1 class="subhero-title">Did You Know?</h1>
+      <p class="subhero-sub">Fun facts about the project &amp; its impact</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="facts-intro">
+      <div class="facts-intro-icon"><i data-lucide="lightbulb"></i></div>
+      <div>
+        <h3>Why This Project Matters</h3>
+        <p>The Reber Building's first-floor hallway is visited daily by hundreds of students, faculty, staff, alumni, and prospective students. These displays replace outdated faux vegetation (unchanged since 2016) with something that actually represents the excitement and innovation of Mechanical Engineering at Penn State.</p>
+      </div>
+    </div>
+
+    <div class="facts-grid">
+      <div class="fact">
+        <div class="fact-num">FACT 01</div>
+        <h4>A Real 2025 Formula SAE Car</h4>
+        <p>Display 2 features an actual 2025 race car donated by Penn State's Nittany Motorsports FSAE team — mounted diagonally with steel cables inside the hallway display case. It's the centerpiece of the Cars &amp; Racing exhibit celebrating student-driven engineering.</p>
+      </div>
+      <div class="fact">
+        <div class="fact-num">FACT 02</div>
+        <h4>Live Solar Power in Real Time</h4>
+        <p>Display 1 features a live monitor showing real-time solar power output from Penn State's Nittany 1 solar farm — giving students and visitors a live window into renewable energy generation happening right on campus.</p>
+      </div>
+      <div class="fact">
+        <div class="fact-num">FACT 03</div>
+        <h4>Inspired by the Exploratorium</h4>
+        <p>The mechanical counter on Display 3 was inspired by the Exploratorium's "Your Turn Counts" exhibit in San Francisco. Each digit represents a different era of technology — progressing from analog gears to wireless signals — visible through a clear Plexiglass window.</p>
+      </div>
+      <div class="fact">
+        <div class="fact-num">FACT 04</div>
+        <h4>An 80-Year-Old Circuit Design</h4>
+        <p>The counter's electronics use a Schmitt trigger circuit — a design based on a 1942 patent — to convert mechanical crank motion into digital signals. An 83-year-old invention powering a brand-new interactive display in 2026.</p>
+      </div>
+      <div class="fact">
+        <div class="fact-num">FACT 05</div>
+        <h4>Zero Cost Vinyl Graphics</h4>
+        <p>All graphic panels for Display 1 were printed at no cost through Penn State's Learning Factory. The team also retained the existing wood paneling rather than replacing it — smart design choices that freed up budget for electronics and interactive hardware.</p>
+      </div>
+      <div class="fact">
+        <div class="fact-num">FACT 06</div>
+        <h4>Replacing Displays Untouched Since 2016</h4>
+        <p>The faux vegetation the displays replaced had been in place since 2016 and was shedding extensively — a decade overdue for an upgrade. KEC's displays will serve as a permanent installation, designed for years of continuous, hands-on use by the public.</p>
+      </div>
+    </div>
+  </section>
+</div><!-- /page-facts -->
+
+<!-- ═════════ FOOTER ═════════ -->
+<footer class="psu-footer">
+  <div class="psu-footer-inner">
+    <div class="psu-footer-top">
+      <div class="psu-footer-brand">
+        <img src="penn-state-logo.png" alt="Penn State" />
+        <div class="psu-footer-brand-text">
+          <strong>The Pennsylvania State University</strong>
+          <span>Department of Mechanical Engineering<br/>College of Engineering · University Park</span>
         </div>
       </div>
-
-      <div class="facts-grid">
-
-        <div class="fact-card glass-section">
-          <div class="fact-num fc-1">01</div>
-          <h4>A Real 2025 Formula SAE Car</h4>
-          <p>
-            Display 2 features an actual 2025 race car donated by Penn State's
-            Nittany Motorsports FSAE team — mounted diagonally with steel cables
-            inside the hallway display case. It's the centrepiece of the Cars &amp;
-            Racing exhibit celebrating student-driven engineering.
-          </p>
-        </div>
-
-        <div class="fact-card glass-section">
-          <div class="fact-num fc-2">02</div>
-          <h4>Live Solar Power in Real Time</h4>
-          <p>
-            Display 1 features a live monitor showing real-time solar power output
-            from Penn State's Nittany 1 solar farm — giving students and visitors
-            a live window into renewable energy generation happening right on campus.
-          </p>
-        </div>
-
-        <div class="fact-card glass-section">
-          <div class="fact-num fc-3">03</div>
-          <h4>Inspired by the Exploratorium</h4>
-          <p>
-            The mechanical counter on Display 3 was inspired by the Exploratorium's
-            "Your Turn Counts" exhibit in San Francisco. Each digit represents a
-            different era of technology — progressing from analog gears to wireless
-            signals — visible through a clear Plexiglass window.
-          </p>
-        </div>
-
-        <div class="fact-card glass-section">
-          <div class="fact-num fc-4">04</div>
-          <h4>An 80-Year-Old Circuit Design</h4>
-          <p>
-            The counter's electronics use a Schmitt trigger circuit — a design
-            based on a 1942 patent — to convert mechanical crank motion into
-            digital signals. An 83-year-old invention powering a brand-new
-            interactive display in 2026.
-          </p>
-        </div>
-
-        <div class="fact-card glass-section">
-          <div class="fact-num fc-5">05</div>
-          <h4>Zero Cost Vinyl Graphics</h4>
-          <p>
-            All graphic panels for Display 1 were printed at no cost through
-            Penn State's Learning Factory. The team also retained the existing
-            wood paneling rather than replacing it — smart design choices that
-            freed up budget for electronics and interactive hardware.
-          </p>
-        </div>
-
-        <div class="fact-card glass-section">
-          <div class="fact-num fc-6">06</div>
-          <h4>Replacing Displays Untouched Since 2016</h4>
-          <p>
-            The faux vegetation the displays replaced had been in place since 2016
-            and was shedding extensively — a decade overdue for an upgrade. KEC's
-            displays will serve as a permanent installation, designed for years of
-            continuous, hands-on use by the public.
-          </p>
-        </div>
-
+      <div class="psu-footer-col">
+        <h5>The Project</h5>
+        <button onclick="navigate('about')">About</button>
+        <button onclick="navigate('design')">Design Process</button>
+        <button onclick="navigate('team')">Team</button>
+        <button onclick="navigate('budget')">Our Spending</button>
       </div>
-    </section>
+      <div class="psu-footer-col">
+        <h5>Resources</h5>
+        <button onclick="openTourModal()">360° Virtual Tour</button>
+        <button onclick="navigate('facts')">Did You Know?</button>
+      </div>
+    </div>
+    <div class="psu-footer-bottom">
+      <span>© 2026 The Pennsylvania State University · ME 440W Capstone Design</span>
+      <span>Kinetic Engineering Collective · Spring 2026</span>
+    </div>
+  </div>
+</footer>
 
-  </div><!-- /.content -->
-
-  <footer class="site-footer">
-    <p>Penn State University &mdash; Department of Mechanical Engineering</p>
-    <p>ME 440W Capstone Design &mdash; Spring 2026 &mdash; Kinetic Engineering Collective</p>
-  </footer>
-</main>
-
-<!-- ══════════════════════════════════════════
-     TOUR MODAL
-══════════════════════════════════════════ -->
+<!-- ═════════ TOUR MODAL ═════════ -->
 <div class="modal-overlay" id="tourModal">
   <div class="modal-container">
     <div class="modal-header">
@@ -726,7 +594,7 @@
         <i data-lucide="globe"></i>
         <span>360° Virtual Tour — Reber Building</span>
       </div>
-      <button class="modal-close" onclick="closeTourModal()">
+      <button class="modal-close" onclick="closeTourModal()" aria-label="Close tour">
         <i data-lucide="x"></i>
       </button>
     </div>
